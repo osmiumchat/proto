@@ -1,0 +1,119 @@
+syntax = "proto3";
+
+package tangle.client.messages;
+
+import "types.proto";
+import "refs.proto";
+import "media.proto";
+
+// messages.sendMessage -> messages.SentMessage
+message SendMessage {
+  refs.ChatRef chat_ref = 1;
+  string message = 2;
+  // @snowflake<Message>
+  optional fixed64 reply_to = 3;
+  repeated media.InputMedia media = 4;
+  repeated types.MessageEntity entities = 5;
+}
+message SentMessage {
+  // @snowflake<Message>
+  fixed64 message_id = 1;
+}
+
+// messages.editMessage -> ()
+message EditMessage {
+  refs.ChatRef chat_ref = 1;
+  // @snowflake<Message>
+  fixed64 message_id = 2;
+  optional string message = 3;
+  bool remove_media = 4;
+  // Replaces media
+  repeated media.InputMedia media = 5;
+  // Replaces entities if not empty or if message is set.
+  repeated types.MessageEntity entities = 6;
+}
+
+// messages.deleteMessage
+message DeleteMessage {
+  refs.ChatRef chat_ref = 1;
+  // @snowflake<Message>
+  repeated fixed64 message_ids = 2;
+}
+
+// messages.getHistory -> messages.Messages
+message GetHistory {
+  refs.ChatRef chat_ref = 1;
+  // Limit the number of messages to return. Defaults to 50, split when using
+  // around.
+  optional uint32 limit = 2;
+  oneof offset {
+    // @snowflake<Message>
+    fixed64 since = 3;
+    // @snowflake<Message>
+    fixed64 before = 4;
+    // @snowflake<Message>
+    fixed64 around = 5;
+  }
+}
+message Messages {
+  repeated types.Message messages = 1;
+  repeated types.User users = 2;
+  repeated types.CommunityMember members = 3;
+}
+
+// messages.getChats -> messages.Chats
+message GetChats {
+  optional uint32 limit = 1;
+  // @snowflake<Chat>
+  optional fixed64 max_id = 2;
+  // @snowflake<Chat>
+  optional fixed64 min_id = 3;
+}
+
+message Chats {
+  repeated types.Conversation chats = 1;
+  repeated types.User users = 2;
+  repeated types.Group groups = 3;
+  repeated types.Channel channels = 4;
+  repeated types.Message messages = 5;
+}
+
+// messages.getChat -> messages.Chat
+message GetChat { refs.ChatRef chat_ref = 1; }
+
+message Chat {
+  types.Conversation chat = 1;
+  optional types.Message message = 2;
+  repeated types.User users = 3;
+  optional types.Group group = 4;
+  optional types.Channel channel = 5;
+}
+
+// messages.createChatInvite -> messages.CreatedChatInvite
+message CreateChatInvite { refs.ChatRef chat_ref = 1; }
+
+message CreatedChatInvite { string code = 1; }
+
+// messages.peekChatInvite -> messages.ChatInvite
+message PeekChatInvite { string code = 1; }
+
+message ChatInvite {
+  string name = 1;
+  optional string community_name = 2;
+}
+
+// messages.useChatInvite -> ()
+message UseChatInvite { string code = 1; }
+
+message MarkChatRead {
+  refs.ChatRef chat_ref = 1;
+  // @snowflake<Message>
+  fixed64 message_id = 2;
+  optional uint32 read_amount = 3;
+}
+
+// messages.setTyping -> ()
+message SetTyping {
+  refs.ChatRef chat_ref = 1;
+  bool typing = 2;
+}

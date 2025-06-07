@@ -1,0 +1,96 @@
+syntax = "proto3";
+
+package tangle.client.updates;
+
+import "types.proto";
+import "refs.proto";
+import "messages.proto";
+
+message Update {
+  oneof update {
+    UpdateNewMessage new_message = 1;
+    UpdateChannel channel = 2;
+    UpdateMessageDeleted message_deleted = 3;
+    UpdateUserStatus user_status = 4;
+    UpdateUser user = 5;
+    UpdateCommunity community = 6;
+    UpdateChannelDeleted channel_deleted = 7;
+    UpdateMessage update_message = 8;
+    UpdateChatTyping chat_typing = 9;
+    UpdateCommunityMember community_member = 10;
+    UpdateCommunityLeft community_left = 11;
+    UpdateConversationPermissions conversation_permissions = 12;
+    UpdateChat chat = 13;
+    UpdateSessionRevoked session_revoked = 14;
+    UpdateCommunityUnavailable community_unavailable = 15;
+  }
+}
+
+message UpdateNewMessage {
+  tangle.client.types.Message message = 1;
+  uint32 channel_unread_count = 2;
+}
+message UpdateMessage { tangle.client.types.Message message = 1; }
+message UpdateChannel { tangle.client.types.Channel channel = 1; }
+message UpdateChannelDeleted { refs.RefChannel channel = 1; }
+
+message UpdateMessageDeleted {
+  refs.ChatRef chat_ref = 1;
+  // @snowflake<Message>
+  repeated fixed64 message_ids = 2;
+}
+
+message UpdateUserStatus {
+  // @snowflake<User>
+  fixed64 user_id = 1;
+  tangle.client.types.UserStatus status = 2;
+}
+
+message UpdateUser {
+  // @snowflake<User>
+  fixed64 user_id = 1;
+  tangle.client.types.User user = 2;
+}
+
+message UpdateCommunity {
+  // @snowflake<Community>
+  fixed64 community_id = 1;
+  tangle.client.types.Community community = 2;
+}
+
+message UpdateCommunityLeft {
+  // @snowflake<Community>
+  fixed64 community_id = 1;
+}
+
+message UpdateChatTyping {
+  refs.ChatRef chat_ref = 1;
+  // @snowflake<User>
+  fixed64 user_id = 2;
+  bool typing = 3;
+}
+
+message UpdateCommunityMember {
+  // @snowflake<Community>
+  fixed64 community_id = 1;
+  // @snowflake<User>
+  fixed64 member_id = 2;
+  tangle.client.types.CommunityMember member = 3;
+}
+
+message UpdateConversationPermissions {
+  refs.ChatRef chat_ref = 1;
+  tangle.client.types.Permissions permissions = 2;
+}
+
+message UpdateChat { messages.Chat chat = 1; }
+
+message UpdateSessionRevoked {
+  // @snowflake<Session>
+  fixed64 session_id = 1;
+}
+
+message UpdateCommunityUnavailable {
+  // @snowflake<Community>
+  fixed64 community_id = 1;
+}

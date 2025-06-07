@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package tangle.client.refs;
+
+// TODO: This is only meant to be used for input. Current use is ambiguous.
+message ChatRef {
+  oneof chat_ref {
+    RefUser user = 1;
+    RefChannel channel = 2;
+    RefGroup group = 3;
+    RefSelf self = 4;
+  }
+}
+
+message RefUser {
+  // @snowflake<User>
+  fixed64 user_id = 1;
+}
+
+message RefSelf {}
+
+message RefChannel {
+  // @snowflake<Community>
+  fixed64 community_id = 1;
+  // @snowflake<Channel>
+  fixed64 channel_id = 2;
+}
+
+message RefGroup {
+  // @snowflake<Chat>
+  fixed64 group_id = 1;
+}

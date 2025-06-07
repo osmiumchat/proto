@@ -1,0 +1,162 @@
+syntax = "proto3";
+
+package tangle.client.types;
+import "refs.proto";
+import "media.proto";
+
+message User {
+  // @snowflake<User>
+  fixed64 id = 1;
+  string name = 2;
+  optional string username = 3;
+  optional UserStatus status = 4;
+  optional ChatPhoto photo = 5;
+}
+
+message ChatPhoto {
+  // @snowflake<File>
+  fixed64 file_id = 1;
+  bytes preview = 2;
+}
+
+message Permissions {
+  fixed64 pos = 1;
+  fixed64 neg = 2;
+}
+
+message Conversation {
+  refs.ChatRef chat_ref = 1;
+  // defaults to chat id if no last message (used for sorting)
+  // @snowflake<Message>
+  fixed64 last_message_id = 2;
+  // @snowflake<Message>
+  fixed64 last_read_message_id = 3;
+  // reserved possible read receipts (last_read_message_id_sent?)
+  reserved 4;
+  uint32 unread_count = 5;
+  optional string draft = 6;
+  optional Permissions permissions = 7;
+}
+
+message Group {
+  // @snowflake<Chat>
+  fixed64 id = 1;
+  string name = 2;
+  bool owner = 3;
+}
+
+message Message {
+  refs.ChatRef chat_ref = 1;
+  // @snowflake<Message>
+  fixed64 message_id = 2;
+  // @snowflake<User>
+  fixed64 author_id = 3;
+  string message = 4;
+  // @snowflake<Message>
+  optional fixed64 reply_to = 5;
+  repeated media.MessageMedia media = 6;
+  repeated MessageEntity entities = 7;
+}
+
+message MessageEntity {
+  uint32 start_index = 1;
+  uint32 length = 2;
+
+  message CustomEmojiEntity {
+    // @snowflake<Emoji>
+    fixed64 emoji_id = 1;
+  }
+
+  message TextUrlEntity { string url = 1; }
+  message PreEntity { string language = 1; }
+  message SpoilerEntity {}
+  message UserMentionEntity {}
+
+  oneof entity {
+    bool bold = 3;
+    bool italic = 4;
+    bool underline = 5;
+    bool strikethrough = 6;
+    bool code = 7;
+    bool url = 8; // implicit url (when the msg content is the url)
+    SpoilerEntity spoiler = 9;
+    PreEntity pre = 10;         // code block
+    TextUrlEntity textUrl = 11; // masked url
+    CustomEmojiEntity custom_emoji = 12;
+    UserMentionEntity user_mention = 13; // @ mention of user by id
+    bool username = 14;                  // @ mention of user by name
+  }
+}
+
+enum ChannelType {
+  TEXT = 0;
+  VOICE = 1;
+}
+
+message Channel {
+  // @snowflake<Channel>
+  fixed64 id = 1;
+  // @snowflake<Community>
+  fixed64 community_id = 2;
+
+  string name = 3;
+  ChannelType type = 4;
+}
+
+message Community {
+  // @snowflake<Community>
+  fixed64 id = 1;
+  bool owner = 2;
+  string name = 3;
+  optional ChatPhoto photo = 4;
+  fixed64 permissions = 5;
+}
+
+message Entrypoint {
+  string hostname = 1;
+  optional string ip_address = 2;
+  uint32 port = 3;
+  uint32 region = 4;
+}
+
+message UserStatus { bool online = 2; }
+
+message CommunityMember {
+  // @snowflake<User>
+  fixed64 id = 1;
+  // @snowflake<Community>
+  fixed64 community_id = 2;
+
+  // @snowflake<Role>
+  repeated fixed64 role_ids = 3;
+  optional string nickname = 4;
+}
+
+message CommunityRole {
+  // @snowflake<Role>
+  fixed64 id = 1;
+  // @snowflake<Community>
+  fixed64 community_id = 2;
+  string name = 3;
+  fixed64 permissions = 4;
+  uint32 priority = 5;
+  uint32 color = 6;
+}
+
+enum CommunityPermission {
+  NONE = 0x00;
+  ADMINISTRATOR = 0x01;
+  VIEW_CHANNEL = 0x02;
+  SEND_MESSAGES = 0x04;
+}
+
+message ChannelOverride {
+  // @snowflake<Community>
+  fixed64 community_id = 1;
+  // @snowflake<Channel>
+  fixed64 channel_id = 2;
+  // @snowflake<Role>
+  fixed64 role_id = 3;
+  uint64 permissions_pos = 4;
+  uint64 permissions_neg = 5;
+}

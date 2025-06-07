@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package tangle.client.auth;
+import "types.proto";
+
+// auth.signIn -> auth.Authorization
+message SignIn {
+  string email = 1;
+  string password = 2;
+}
+
+// auth.signUp -> auth.Authorization
+message SignUp {
+  string email = 1;
+  string password = 2;
+  string name = 3;
+}
+
+// auth.authorize -> auth.Authorization
+message Authorize { string token = 5; }
+
+message Authorization {
+  string token = 1;
+  tangle.client.types.User user = 2;
+  // @snowflake<Session>
+  fixed64 session_id = 3;
+}
+
+// auth.getSessions -> auth.Sessions
+message GetSessions {}
+
+message Sessions {
+  repeated Session sessions = 1;
+  // @snowflake<Session>
+  fixed64 current = 2;
+}
+
+message Session {
+  // @snowflake<Session>
+  fixed64 id = 1;
+  uint32 client_id = 2;
+  string device_type = 3;
+  string device_version = 4;
+  string app_name = 5;
+  string app_version = 6;
+  fixed64 last_active = 7;
+  optional string country = 8;
+}
+
+// auth.revokeSessions -> ()
+message RevokeSessions {
+  // @snowflake<Session>
+  repeated fixed64 session_ids = 1;
+}

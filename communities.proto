@@ -1,0 +1,190 @@
+syntax = "proto3";
+
+package tangle.client.communities;
+import "refs.proto";
+import "types.proto";
+import "media.proto";
+
+// communities.getCommunities -> communities.Communities
+message GetCommunities {}
+message CommunityUserInfo {
+  // @snowflake<Community>
+  fixed64 community_id = 1;
+  int32 unread_count = 2;
+  // in future there will be a mention count here as well
+}
+
+message Communities {
+  repeated types.Community communities = 1;
+  repeated CommunityUserInfo community_user_info = 2;
+  repeated fixed64 unavailable = 3;
+}
+
+// communities.getChannels -> communities.Channels
+message GetChannels {
+  // @snowflake<Community>
+  fixed64 community_id = 1;
+}
+message Channels {
+  repeated types.Conversation conversations = 1;
+  repeated types.Channel channels = 2;
+  repeated types.Message messages = 3;
+}
+
+// community.createCommunity -> ()
+message CreateCommunity { string name = 1; }
+
+// communities.createChannel -> ()
+message CreateChannel {
+  // @snowflake<Community>
+  fixed64 community_id = 1;
+  string name = 2;
+  types.ChannelType type = 3;
+}
+
+// communities.deleteChannel -> ()
+message DeleteChannel { refs.RefChannel channel = 1; }
+
+// communities.editChannel -> ()
+message EditChannel {
+  refs.RefChannel channel = 1;
+  optional string name = 2;
+}
+
+// communities.getMembers -> communities.Members
+message GetMembers {
+  // @snowflake<Community>
+  fixed64 community_id = 1;
+}
+message Members {
+  repeated types.CommunityMember members = 1;
+  repeated types.User users = 2;
+}
+
+// communities.editPhoto -> ()
+message EditPhoto {
+  // @snowflake<Community>
+  fixed64 community_id = 1;
+  media.UploadedFile file = 2;
+}
+
+// Fetches roles in the community that the user is allowed to see.
+// Meant to be admin only, currently not enforced until Member List v2
+//
+// communities.getRoles -> communities.CommunityRoles
+message GetRoles {
+  // @snowflake<Community>
+  fixed64 community_id = 1;
+}
+message CommunityRoles { repeated types.CommunityRole roles = 1; }
+
+// communities.createRole -> ()
+message CreateRole {
+  // @snowflake<Community>
+  fixed64 community_id = 2;
+  string name = 3;
+  fixed64 permissions = 4;
+  uint32 priority = 5;
+  uint32 color = 6;
+}
+
+// communities.editRole -> ()
+message EditRole {
+  // @snowflake<Role>
+  fixed64 id = 1;
+  // @snowflake<Community>
+  fixed64 community_id = 2;
+  string name = 3;
+  fixed64 permissions = 4;
+  uint32 priority = 5;
+  uint32 color = 6;
+}
+
+// communities.deleteRole -> ()
+message DeleteRole {
+  // @snowflake<Role>
+  fixed64 id = 1;
+  // @snowflake<Community>
+  fixed64 community_id = 2;
+}
+
+// communities.editMember -> ()
+message EditMember {
+  // @snowflake<Community>
+  fixed64 community_id = 1;
+  // @snowflake<User>
+  fixed64 member_id = 2;
+  optional string nickname = 3;
+  optional CommunityMemberRoleIds role_ids = 4;
+}
+message CommunityMemberRoleIds { // out here cus nested snowflake
+  // @snowflake<Role>
+  repeated fixed64 role_ids = 1;
+}
+
+// communities.getChannelOverrides -> communities.ChannelOverrides
+message GetChannelOverrides {
+  // @snowflake<Community>
+  fixed64 community_id = 1;
+  // @snowflake<Channel>
+  fixed64 channel_id = 2;
+}
+message ChannelOverrides { repeated types.ChannelOverride overrides = 1; }
+
+// communities.createChannelOverride -> communities.ChannelOverride
+message CreateChannelOverride {
+  // @snowflake<Community>
+  fixed64 community_id = 1;
+  // @snowflake<Channel>
+  fixed64 channel_id = 2;
+  // @snowflake<Role>
+  fixed64 role_id = 3;
+  uint64 permissions_pos = 4;
+  uint64 permissions_neg = 5;
+}
+
+message ChannelOverride { types.ChannelOverride override = 1; }
+
+// communities.deleteChannelOverride -> ()
+message DeleteChannelOverride {
+  // @snowflake<Community>
+  fixed64 community_id = 1;
+  // @snowflake<Channel>
+  fixed64 channel_id = 2;
+  // @snowflake<Role>
+  fixed64 role_id = 3;
+}
+
+// communities.leaveCommunity -> ()
+message LeaveCommunity {
+  // @snowflake<Community>
+  fixed64 community_id = 1;
+}
+
+// communities.deleteCommunity -> ()
+message DeleteCommunity {
+  // @snowflake<Community>
+  fixed64 community_id = 1;
+}
+
+// communities.editCommunity -> ()
+message EditCommunity {
+  // @snowflake<Community>
+  fixed64 community_id = 1;
+  optional string name = 2;
+}
+
+// Removes a list of members from the community
+//
+// communities.removeMembers -> RemovedMembers
+message RemoveMembers {
+  // @snowflake<Community>
+  fixed64 community_id = 1;
+  // @snowflake<User>
+  repeated fixed64 member_ids = 2;
+  // Unix timestamp. Zero value results in a permanent ban.
+  optional fixed64 until = 3;
+  // Unix timestamp.
+  optional fixed64 delete_messages_since = 4;
+}
+message RemovedMembers {}

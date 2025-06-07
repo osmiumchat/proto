@@ -1,0 +1,112 @@
+syntax = "proto3";
+
+package tangle.client.core;
+
+import "auth.proto";
+import "messages.proto";
+import "updates.proto";
+import "communities.proto";
+import "friends.proto";
+import "media.proto";
+import "types.proto";
+import "settings.proto";
+
+message ClientMessage {
+  uint32 id = 1;
+  oneof message {
+    auth.SignIn auth_sign_in = 2;
+    auth.SignUp auth_sign_up = 3;
+    messages.SendMessage messages_send_message = 4;
+    messages.GetHistory messages_get_history = 5;
+    communities.CreateCommunity communities_create_community = 6;
+    communities.GetCommunities communities_get_communities = 7;
+    communities.CreateChannel communities_create_channel = 8;
+    communities.GetChannels communities_get_channels = 9;
+    friends.GetFriends friends_get_friends = 10;
+    messages.GetChats messages_get_chats = 11;
+    media.UploadPart media_upload_part = 12;
+    media.DownloadFile media_download_file = 13;
+    messages.CreateChatInvite messages_create_chat_invite = 14;
+    messages.PeekChatInvite messages_peek_chat_invite = 15;
+    messages.UseChatInvite messages_use_chat_invite = 16;
+    messages.DeleteMessage messages_delete_message = 17;
+    communities.GetMembers communities_get_members = 18;
+    Initialize core_initialize = 19;
+    auth.Authorize auth_authorize = 20;
+    messages.MarkChatRead messages_mark_chat_read = 21;
+    settings.UploadProfilePhoto settings_upload_profile_photo = 22;
+    communities.EditPhoto communities_edit_photo = 23;
+    communities.DeleteChannel communities_delete_channel = 24;
+    messages.GetChat messages_get_chat = 25;
+    messages.EditMessage messages_edit_message = 26;
+    communities.GetRoles communities_get_roles = 27;
+    messages.SetTyping messages_set_typing = 28;
+    communities.CreateRole communities_create_role = 29;
+    communities.EditRole communities_edit_role = 30;
+    communities.DeleteRole communities_delete_role = 31;
+    communities.EditMember communities_edit_member = 32;
+    communities.CreateChannelOverride communities_create_channel_override = 33;
+    communities.DeleteChannelOverride communities_delete_channel_override = 34;
+    communities.GetChannelOverrides communities_get_channel_overrides = 35;
+    communities.LeaveCommunity communities_leave_community = 36;
+    communities.DeleteCommunity communities_delete_community = 37;
+    friends.SyncFriends friends_sync_friends = 38;
+    communities.EditChannel communities_edit_channel = 39;
+    communities.EditCommunity communities_edit_community = 40;
+    auth.GetSessions auth_get_sessions = 41;
+    auth.RevokeSessions auth_revoke_sessions = 42;
+    settings.RegisterPushSubscription settings_register_push_subscription = 43;
+    settings.UnregisterPushSubscription settings_unregister_push_subscription = 44;
+  }
+}
+
+message ServerMessage {
+  uint32 id = 1;
+  oneof message {
+    tangle.client.updates.Update update = 2;
+    RPCResult result = 3;
+  }
+}
+
+message RPCResult {
+  uint32 req_id = 1;
+  oneof result {
+    RPCError error = 2;
+    messages.SentMessage sent_message = 3;
+    auth.Authorization authorization = 4;
+    communities.Communities communities = 5;
+    communities.Channels channels = 6;
+    messages.Messages messages = 7;
+    friends.Friends friends = 8;
+    messages.Chats chats = 9;
+    media.File file = 10;
+    messages.CreatedChatInvite created_chat_invite = 11;
+    messages.ChatInvite chat_invite = 12;
+    communities.Members members = 13;
+    Initialized initialized = 14;
+    messages.Chat chat = 15;
+    communities.CommunityRoles community_roles = 16;
+    communities.ChannelOverride channel_override = 17;
+    communities.ChannelOverrides channel_overrides = 18;
+    auth.Sessions sessions = 19;
+  }
+}
+
+message RPCError {
+  uint32 error_code = 1;
+  string error_message = 2;
+}
+
+message Initialize {
+  uint32 client_id = 1;
+  string device_type = 2;
+  string device_version = 3;
+  string app_version = 4;
+}
+
+message Initialized {
+  Entrypoints entrypoints = 1;
+  optional string vapid_public_key = 2;
+}
+
+message Entrypoints { repeated types.Entrypoint entrypoints = 1; }

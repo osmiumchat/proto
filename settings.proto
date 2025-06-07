@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package tangle.client.settings;
+
+import "media.proto";
+
+// settings.uploadProfilePhoto -> settings.UploadProfilePhoto
+message UploadProfilePhoto { media.UploadedFile file = 1; }
+
+// settings.registerPushSubscription -> ()
+message RegisterPushSubscription {
+  enum PushType {
+    UNKNOWN = 0;
+    WEB = 1;
+  }
+  message WebPush {
+    string endpoint = 1;
+    string p256dh = 2;
+    string auth = 3;
+  }
+  message Push {
+    PushType type = 1;
+    string token = 2;
+  }
+
+  oneof subscription {
+    WebPush web = 1;
+    Push push = 2;
+  }
+}
+
+// settings.unregisterPushSubscription -> ()
+message UnregisterPushSubscription {}
