@@ -101,6 +101,7 @@ message Channel {
 
   string name = 3;
   ChannelType type = 4;
+  uint32 position = 5;
 }
 
 message Community {

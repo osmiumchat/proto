@@ -9,6 +9,12 @@ message UploadPart {
   bytes data = 3;
 }
 
+message UploadedFile {
+  fixed64 id = 1;
+  string name = 2;
+  uint32 parts = 3;
+}
+
 // media.downloadFile -> media.File
 message DownloadFile {
   // @snowflake<File>
@@ -18,59 +24,50 @@ message DownloadFile {
 }
 message File { bytes data = 3; }
 
-// used for message media input
-message InputMedia {
+// Message sending (media references)
+
+message MediaRef {
+  oneof ref { MediaRefUploaded uploaded = 1; }
+}
+
+message MediaRefUploaded {
   UploadedFile file = 1;
-  oneof data {
-    InputMediaPhoto photo = 2;
-    InputMediaVideo video = 3;
-    InputMediaAudio audio = 4;
+  optional string filename = 2;
+  string mimetype = 3;
+  FileMetadata metadata = 4;
+}
+
+// File meta (sending and receiving)
+message FileMetadata {
+  message MetadataImage {
+    uint32 width = 1;
+    uint32 height = 2;
+    optional bytes preview = 3;
+  }
+  message MetadataVideo {
+    uint32 width = 1;
+    uint32 height = 2;
+    uint32 duration = 3; // in seconds
+  }
+  message MetadataAudio {
+    uint32 duration = 1; // in seconds
+  }
+  message MetadataFile {}
+
+  oneof attributes {
+    MetadataImage image = 1;
+    MetadataVideo video = 2;
+    MetadataAudio audio = 3;
+    MetadataFile file = 4;
   }
 }
 
-message InputMediaPhoto {
-  // todo: spoiler?
-}
-
-message InputMediaVideo {}
-
-message InputMediaAudio {}
-
-message UploadedFile {
-  // @snowflake<File>
-  fixed64 id = 1;
-  string name = 2;
-  uint32 parts = 3;
-}
-
-// public media types
+// Media in messages
 message MessageMedia {
   // @snowflake<File>
   fixed64 file_id = 1;
   uint64 size = 2;
-
-  oneof metadata {
-    MessageMediaFile file = 3;
-    MessageMediaPhoto photo = 4;
-    MessageMediaVideo video = 5;
-    MessageMediaAudio audio = 6;
-  }
+  string mimetype = 3;
+  optional string filename = 4;
+  FileMetadata metadata = 5;
 }
-
-message MessageMediaPhoto {
-  optional uint32 width = 1;
-  optional uint32 height = 2;
-}
-
-message MessageMediaVideo {
-  optional uint32 width = 1;
-  optional uint32 height = 2;
-  optional uint32 duration = 3;
-}
-
-message MessageMediaAudio {
-  optional string filename = 1;
-  uint32 duration = 2;
-}
-
-message MessageMediaFile { string filename = 1; }

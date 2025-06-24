@@ -12,7 +12,7 @@ message SendMessage {
   string message = 2;
   // @snowflake<Message>
   optional fixed64 reply_to = 3;
-  repeated media.InputMedia media = 4;
+  repeated media.MediaRef media = 4;
   repeated types.MessageEntity entities = 5;
 }
 message SentMessage {
@@ -28,7 +28,7 @@ message EditMessage {
   optional string message = 3;
   bool remove_media = 4;
   // Replaces media
-  repeated media.InputMedia media = 5;
+  repeated media.MediaRef media = 5;
   // Replaces entities if not empty or if message is set.
   repeated types.MessageEntity entities = 6;
 }

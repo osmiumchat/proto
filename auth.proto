@@ -52,3 +52,23 @@ message RevokeSessions {
   // @snowflake<Session>
   repeated fixed64 session_ids = 1;
 }
+
+// auth.resetPassword -> ()
+message ResetPassword {
+  message ResetPasswordConfirm {
+    string code = 1;
+    string new_password = 2;
+  }
+
+  string email = 1;
+  optional ResetPasswordConfirm confirm = 2;
+}
+
+// auth.verifyEmail -> ()
+message VerifyEmail {
+  string email = 1;
+  string code = 2;
+}
+
+// auth.resendEmailVerification -> ()
+message ResendEmailVerification { optional string email = 1; }

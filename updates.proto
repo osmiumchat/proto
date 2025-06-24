@@ -23,6 +23,7 @@ message Update {
     UpdateChat chat = 13;
     UpdateSessionRevoked session_revoked = 14;
     UpdateCommunityUnavailable community_unavailable = 15;
+    UpdateMemberListSync member_list_sync = 16;
   }
 }
 
@@ -93,4 +94,13 @@ message UpdateSessionRevoked {
 message UpdateCommunityUnavailable {
   // @snowflake<Community>
   fixed64 community_id = 1;
+}
+
+message UpdateMemberListSync {
+  // @snowflake<Community>
+  optional fixed64 community_id = 1;
+  // @snowflake<Channel>
+  fixed64 channel_id = 2;
+  // @snowflake<User>
+  repeated fixed64 member_ids = 3;
 }

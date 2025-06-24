@@ -56,7 +56,11 @@ message ClientMessage {
     auth.GetSessions auth_get_sessions = 41;
     auth.RevokeSessions auth_revoke_sessions = 42;
     settings.RegisterPushSubscription settings_register_push_subscription = 43;
-    settings.UnregisterPushSubscription settings_unregister_push_subscription = 44;
+    settings.UnregisterPushSubscription settings_unregister_push_subscription =
+        44;
+    auth.ResetPassword auth_reset_password = 45;
+    auth.VerifyEmail auth_verify_email = 46;
+    auth.ResendEmailVerification auth_resend_email_verification = 47;
   }
 }
 

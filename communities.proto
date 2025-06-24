@@ -49,12 +49,15 @@ message DeleteChannel { refs.RefChannel channel = 1; }
 message EditChannel {
   refs.RefChannel channel = 1;
   optional string name = 2;
+  optional uint32 position = 3;
 }
 
 // communities.getMembers -> communities.Members
 message GetMembers {
   // @snowflake<Community>
   fixed64 community_id = 1;
+  // @snowflake<Channel>
+  fixed64 channel_id = 2;
 }
 message Members {
   repeated types.CommunityMember members = 1;
