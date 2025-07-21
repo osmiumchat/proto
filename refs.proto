@@ -4,29 +4,29 @@ package tangle.client.refs;
 
 // TODO: This is only meant to be used for input. Current use is ambiguous.
 message ChatRef {
-  oneof chat_ref {
-    RefUser user = 1;
-    RefChannel channel = 2;
-    RefGroup group = 3;
+  oneof ref {
+    UserRef user = 1;
+    ChannelRef channel = 2;
+    GroupRef group = 3;
     RefSelf self = 4;
   }
 }
 
-message RefUser {
+message UserRef {
   // @snowflake<User>
   fixed64 user_id = 1;
 }
 
 message RefSelf {}
 
-message RefChannel {
+message ChannelRef {
   // @snowflake<Community>
   fixed64 community_id = 1;
   // @snowflake<Channel>
   fixed64 channel_id = 2;
 }
 
-message RefGroup {
+message GroupRef {
   // @snowflake<Chat>
   fixed64 group_id = 1;
 }

@@ -43,11 +43,11 @@ message CreateChannel {
 }
 
 // communities.deleteChannel -> ()
-message DeleteChannel { refs.RefChannel channel = 1; }
+message DeleteChannel { refs.ChannelRef channel = 1; }
 
 // communities.editChannel -> ()
 message EditChannel {
-  refs.RefChannel channel = 1;
+  refs.ChannelRef channel = 1;
   optional string name = 2;
   optional uint32 position = 3;
 }
@@ -68,13 +68,13 @@ message Members {
 message EditPhoto {
   // @snowflake<Community>
   fixed64 community_id = 1;
-  media.UploadedFile file = 2;
+  media.UploadedFileRef file = 2;
 }
 
 // Fetches roles in the community that the user is allowed to see.
 // Meant to be admin only, currently not enforced until Member List v2
 //
-// communities.getRoles -> communities.CommunityRoles
+// communities.getRoles -> communities.Roles
 message GetRoles {
   // @snowflake<Community>
   fixed64 community_id = 1;
@@ -142,8 +142,7 @@ message CreateChannelOverride {
   fixed64 channel_id = 2;
   // @snowflake<Role>
   fixed64 role_id = 3;
-  uint64 permissions_pos = 4;
-  uint64 permissions_neg = 5;
+  types.PermissionOverrides permissions = 4;
 }
 
 message ChannelOverride { types.ChannelOverride override = 1; }

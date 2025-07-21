@@ -9,8 +9,14 @@ message Friends { repeated types.User friends = 1; }
 
 // friends.syncFriends -> ()
 message SyncFriends {
-    fixed64 id = 1;
-    string name = 2;
-    string platform = 3;
-    repeated bytes friend_ids_hashed = 4;
+  fixed64 id = 1;
+  string name = 2;
+  string platform = 3;
+  repeated bytes friend_ids_hashed = 4;
+}
+
+// friends.lookupUsername -> UserDetails
+message LookupUsername { string username = 1; }
+message UserDetails {
+  types.User user = 1;
 }

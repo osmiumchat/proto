@@ -4,8 +4,8 @@ package tangle.client.settings;
 
 import "media.proto";
 
-// settings.uploadProfilePhoto -> settings.UploadProfilePhoto
-message UploadProfilePhoto { media.UploadedFile file = 1; }
+// settings.editProfilePhoto -> ()
+message EditProfilePhoto { media.UploadedFileRef file = 1; }
 
 // settings.registerPushSubscription -> ()
 message RegisterPushSubscription {

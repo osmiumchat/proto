@@ -19,7 +19,7 @@ message ChatPhoto {
   bytes preview = 2;
 }
 
-message Permissions {
+message PermissionOverrides {
   fixed64 pos = 1;
   fixed64 neg = 2;
 }
@@ -35,7 +35,7 @@ message Conversation {
   reserved 4;
   uint32 unread_count = 5;
   optional string draft = 6;
-  optional Permissions permissions = 7;
+  optional PermissionOverrides permissions = 7;
 }
 
 message Group {
@@ -158,6 +158,5 @@ message ChannelOverride {
   fixed64 channel_id = 2;
   // @snowflake<Role>
   fixed64 role_id = 3;
-  uint64 permissions_pos = 4;
-  uint64 permissions_neg = 5;
+  PermissionOverrides permissions = 4;
 }

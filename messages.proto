@@ -94,8 +94,8 @@ message CreateChatInvite { refs.ChatRef chat_ref = 1; }
 
 message CreatedChatInvite { string code = 1; }
 
-// messages.peekChatInvite -> messages.ChatInvite
-message PeekChatInvite { string code = 1; }
+// messages.lookupChatInvite -> messages.ChatInvite
+message LookupChatInvite { string code = 1; }
 
 message ChatInvite {
   string name = 1;

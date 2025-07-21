@@ -24,17 +24,17 @@ message ClientMessage {
     communities.GetChannels communities_get_channels = 9;
     friends.GetFriends friends_get_friends = 10;
     messages.GetChats messages_get_chats = 11;
-    media.UploadPart media_upload_part = 12;
-    media.DownloadFile media_download_file = 13;
+    media.UploadFilePart media_upload_file_part = 12;
+    media.DownloadFilePart media_download_file_part = 13;
     messages.CreateChatInvite messages_create_chat_invite = 14;
-    messages.PeekChatInvite messages_peek_chat_invite = 15;
+    messages.LookupChatInvite messages_lookup_chat_invite = 15;
     messages.UseChatInvite messages_use_chat_invite = 16;
     messages.DeleteMessage messages_delete_message = 17;
     communities.GetMembers communities_get_members = 18;
     Initialize core_initialize = 19;
     auth.Authorize auth_authorize = 20;
     messages.MarkChatRead messages_mark_chat_read = 21;
-    settings.UploadProfilePhoto settings_upload_profile_photo = 22;
+    settings.EditProfilePhoto settings_edit_profile_photo = 22;
     communities.EditPhoto communities_edit_photo = 23;
     communities.DeleteChannel communities_delete_channel = 24;
     messages.GetChat messages_get_chat = 25;
@@ -61,6 +61,8 @@ message ClientMessage {
     auth.ResetPassword auth_reset_password = 45;
     auth.VerifyEmail auth_verify_email = 46;
     auth.ResendEmailVerification auth_resend_email_verification = 47;
+    friends.LookupUsername friends_lookup_username = 48;
+    communities.RemoveMembers communities_remove_members = 49;
   }
 }
 
@@ -83,7 +85,7 @@ message RPCResult {
     messages.Messages messages = 7;
     friends.Friends friends = 8;
     messages.Chats chats = 9;
-    media.File file = 10;
+    media.FilePart file_part = 10;
     messages.CreatedChatInvite created_chat_invite = 11;
     messages.ChatInvite chat_invite = 12;
     communities.Members members = 13;
@@ -93,6 +95,8 @@ message RPCResult {
     communities.ChannelOverride channel_override = 17;
     communities.ChannelOverrides channel_overrides = 18;
     auth.Sessions sessions = 19;
+    friends.UserDetails user_details = 20;
+    communities.RemovedMembers removed_members = 21;
   }
 }
 
