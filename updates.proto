@@ -31,6 +31,8 @@ message Update {
 message UpdateMessageCreated {
   tangle.client.types.Message message = 1;
   uint32 channel_unread_count = 2;
+  // The sender of the message. Mostly used in communities. Do not assume this is always present.
+  optional tangle.client.types.User sender = 3;
 }
 message UpdateMessage { tangle.client.types.Message message = 1; }
 message UpdateChannel { tangle.client.types.Channel channel = 1; }
