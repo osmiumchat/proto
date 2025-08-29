@@ -4,9 +4,10 @@ package tangle.client.core;
 
 import "auth.proto";
 import "messages.proto";
+import "chats.proto";
 import "updates.proto";
-import "communities.proto";
 import "friends.proto";
+import "communities.proto";
 import "media.proto";
 import "types.proto";
 import "settings.proto";
@@ -22,25 +23,25 @@ message ClientMessage {
     communities.GetCommunities communities_get_communities = 7;
     communities.CreateChannel communities_create_channel = 8;
     communities.GetChannels communities_get_channels = 9;
-    friends.GetFriends friends_get_friends = 10;
-    messages.GetChats messages_get_chats = 11;
+    friends.GetRelationships friends_get_relationships = 10;
+    chats.GetChats chats_get_chats = 11;
     media.UploadFilePart media_upload_file_part = 12;
     media.DownloadFilePart media_download_file_part = 13;
-    messages.CreateChatInvite messages_create_chat_invite = 14;
-    messages.LookupChatInvite messages_lookup_chat_invite = 15;
-    messages.UseChatInvite messages_use_chat_invite = 16;
+    chats.CreateChatInvite chats_create_chat_invite = 14;
+    chats.LookupChatInvite chats_lookup_chat_invite = 15;
+    chats.UseChatInvite chats_use_chat_invite = 16;
     messages.DeleteMessage messages_delete_message = 17;
     communities.GetMembers communities_get_members = 18;
     Initialize core_initialize = 19;
     auth.Authorize auth_authorize = 20;
-    messages.MarkChatRead messages_mark_chat_read = 21;
+    chats.MarkChatRead chats_mark_chat_read = 21;
     settings.EditProfilePhoto settings_edit_profile_photo = 22;
     communities.EditPhoto communities_edit_photo = 23;
     communities.DeleteChannel communities_delete_channel = 24;
-    messages.GetChat messages_get_chat = 25;
+    chats.GetChat chats_get_chat = 25;
     messages.EditMessage messages_edit_message = 26;
     communities.GetRoles communities_get_roles = 27;
-    messages.SetTyping messages_set_typing = 28;
+    chats.SetTyping chats_set_typing = 28;
     communities.CreateRole communities_create_role = 29;
     communities.EditRole communities_edit_role = 30;
     communities.DeleteRole communities_delete_role = 31;
@@ -63,6 +64,10 @@ message ClientMessage {
     auth.ResendEmailVerification auth_resend_email_verification = 47;
     friends.LookupUsername friends_lookup_username = 48;
     communities.RemoveMembers communities_remove_members = 49;
+    chats.CreateChat chats_create_chat = 50;
+    friends.ChangeRelationship change_relationship = 51;
+    chats.UpdateChat chats_update_chat = 52;
+    chats.RemoveChatMember chats_remove_chat_member = 53;
   }
 }
 
@@ -83,14 +88,14 @@ message RPCResult {
     communities.Communities communities = 5;
     communities.Channels channels = 6;
     messages.Messages messages = 7;
-    friends.Friends friends = 8;
-    messages.Chats chats = 9;
+    friends.Relationships relationships = 8;
+    chats.Chats chats = 9;
     media.FilePart file_part = 10;
-    messages.CreatedChatInvite created_chat_invite = 11;
-    messages.ChatInvite chat_invite = 12;
+    chats.CreatedChatInvite created_chat_invite = 11;
+    chats.ChatInvite chat_invite = 12;
     communities.Members members = 13;
     Initialized initialized = 14;
-    messages.Chat chat = 15;
+    chats.Chat chat = 15;
     communities.CommunityRoles community_roles = 16;
     communities.ChannelOverride channel_override = 17;
     communities.ChannelOverrides channel_overrides = 18;

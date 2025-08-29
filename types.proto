@@ -11,6 +11,7 @@ message User {
   optional string username = 3;
   optional UserStatus status = 4;
   optional ChatPhoto photo = 5;
+  bool bot = 6;
 }
 
 message ChatPhoto {
@@ -159,4 +160,19 @@ message ChannelOverride {
   // @snowflake<Role>
   fixed64 role_id = 3;
   PermissionOverrides permissions = 4;
+}
+
+enum RelationshipStatus {
+  INVALID = 0;
+  FRIEND = 1;
+  FRIEND_REQUEST_INCOMING = 2;
+  FRIEND_REQUEST_OUTGOING = 3;
+  BLOCKED = 4;
+  SUGGESTED_FRIEND = 5;
+}
+
+message Relationship {
+  // @snowflake<User>
+  fixed64 user_id = 1;
+  RelationshipStatus status = 2;
 }

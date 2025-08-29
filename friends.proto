@@ -3,20 +3,41 @@ syntax = "proto3";
 package tangle.client.friends;
 import "types.proto";
 
-// friends.getFriends -> Friends
-message GetFriends {}
-message Friends { repeated types.User friends = 1; }
+// friends.getRelationships -> Relationships
+message GetRelationships {}
+message Relationships {
+  repeated types.Relationship relationships = 1;
+  repeated types.User users = 2;
+}
 
 // friends.syncFriends -> ()
 message SyncFriends {
-  fixed64 id = 1;
-  string name = 2;
-  string platform = 3;
-  repeated bytes friend_ids_hashed = 4;
+  string platform_user_id = 1;
+  bytes hashed_platform_user_id = 2;
+  optional string platform_user_name = 3;
+  string platform = 4;
+  repeated bytes friend_ids_hashed = 5;
 }
 
 // friends.lookupUsername -> UserDetails
 message LookupUsername { string username = 1; }
-message UserDetails {
-  types.User user = 1;
+message UserDetails { types.User user = 1; }
+
+// friends.changeRelationship -> ()
+message ChangeRelationship {
+  // @snowflake<User>
+  fixed64 user_id = 1;
+
+  RelationshipChangeType change = 2;
+
+  enum RelationshipChangeType {
+    INVALID = 0;
+    REQUEST_FRIENDSHIP = 1;
+    ACCEPT_FRIENDSHIP = 2;
+    REMOVE_FRIENDSHIP = 3;
+    BLOCK_USER = 4;
+    UNBLOCK_USER = 5;
+    SUGGEST_FRIEND = 6;
+  }
 }
+
