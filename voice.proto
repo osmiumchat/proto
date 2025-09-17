@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+import "refs.proto";
+
+package tangle.client.voice;
+
+message RoomInfo {
+  fixed64 room_id = 1;
+  refs.ChatRef chat_ref = 2;
+  string endpoint = 3;
+}
+
+message RoomParticipant {
+  fixed64 room_id = 1;
+  fixed64 connection_id = 2;
+  // @snowflake<User>
+  fixed64 user_id = 3;
+  bool muted = 4;
+  bool deafened = 5;
+}
+
+// voice.requestRoom -> RoomInfo
+message RequestRoom {
+  refs.ChatRef chat_ref = 1;
+}
+
+// Updates
+message UpdateRoomState {
+  refs.ChatRef chat_ref = 1;
+  fixed64 room_id = 2;
+  repeated RoomParticipant participants = 3;
+}
+
+message UpdateRoomParticipant {
+  fixed64 connection_id = 1;
+  refs.ChatRef chat_ref = 2;
+  // @snowflake<User>
+  fixed64 user_id = 3;
+  bool muted = 4;
+  bool deafened = 5;
+}

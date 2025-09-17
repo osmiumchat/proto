@@ -74,7 +74,7 @@ message EditPhoto {
 // Fetches roles in the community that the user is allowed to see.
 // Meant to be admin only, currently not enforced until Member List v2
 //
-// communities.getRoles -> communities.Roles
+// communities.getRoles -> communities.CommunityRoles
 message GetRoles {
   // @snowflake<Community>
   fixed64 community_id = 1;

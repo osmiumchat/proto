@@ -33,21 +33,12 @@ message Chat {
   optional types.Channel channel = 5;
 }
 
-// chats.createChatInvite -> chats.CreatedChatInvite
-message CreateChatInvite { refs.ChatRef chat_ref = 1; }
-
-message CreatedChatInvite { string code = 1; }
-
-// chats.lookupChatInvite -> chats.ChatInvite
-message LookupChatInvite { string code = 1; }
-
-message ChatInvite {
-  string name = 1;
-  optional string community_name = 2;
+// chats.createChatInvite -> auth.CreatedInvite
+message CreateChatInvite {
+  refs.ChatRef chat_ref = 1;
+  optional fixed64 expires_at = 2;
+  optional uint32 max_uses = 3;
 }
-
-// chats.useChatInvite -> ()
-message UseChatInvite { string code = 1; }
 
 // chats.markChatRead -> ()
 message MarkChatRead {
@@ -63,7 +54,7 @@ message SetTyping {
   bool typing = 2;
 }
 
-// chats.createChat -> chats.Chat
+// chats.createChat -> types.Group
 message CreateChat {
   repeated refs.UserRef users = 1;
   string name = 2;

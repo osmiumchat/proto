@@ -33,7 +33,7 @@ message EditMessage {
   repeated types.MessageEntity entities = 6;
 }
 
-// messages.deleteMessage
+// messages.deleteMessage -> ()
 message DeleteMessage {
   refs.ChatRef chat_ref = 1;
   // @snowflake<Message>

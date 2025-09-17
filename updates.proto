@@ -5,6 +5,7 @@ package tangle.client.updates;
 import "types.proto";
 import "refs.proto";
 import "chats.proto";
+import "voice.proto";
 
 message Update {
   oneof update {
@@ -27,6 +28,9 @@ message Update {
     UpdateCommunityMemberDeleted community_member_deleted = 17;
     UpdateUserRelationship update_user_relationship = 18;
     UpdateUserRelationshipDeleted update_user_relationship_deleted = 19;
+    UpdateGroup group = 20;
+    voice.UpdateRoomState room_state = 21;
+    voice.UpdateRoomParticipant room_participant = 22;
   }
 }
 
@@ -123,4 +127,9 @@ message UpdateUserRelationship { types.Relationship relationship = 1; }
 message UpdateUserRelationshipDeleted {
   // @snowflake<User>
   fixed64 other_user_id = 1;
+}
+
+message UpdateGroup {
+  types.Group group = 1;
+  repeated types.User users = 2;
 }

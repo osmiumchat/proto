@@ -11,6 +11,7 @@ import "communities.proto";
 import "media.proto";
 import "types.proto";
 import "settings.proto";
+import "voice.proto";
 
 message ClientMessage {
   uint32 id = 1;
@@ -28,8 +29,8 @@ message ClientMessage {
     media.UploadFilePart media_upload_file_part = 12;
     media.DownloadFilePart media_download_file_part = 13;
     chats.CreateChatInvite chats_create_chat_invite = 14;
-    chats.LookupChatInvite chats_lookup_chat_invite = 15;
-    chats.UseChatInvite chats_use_chat_invite = 16;
+    // chats.LookupInvite chats_lookup_invite = 15;
+    auth.UseInvite auth_use_invite = 16;
     messages.DeleteMessage messages_delete_message = 17;
     communities.GetMembers communities_get_members = 18;
     Initialize core_initialize = 19;
@@ -68,7 +69,11 @@ message ClientMessage {
     friends.ChangeRelationship change_relationship = 51;
     chats.UpdateChat chats_update_chat = 52;
     chats.RemoveChatMember chats_remove_chat_member = 53;
+    auth.LookupInvite auth_lookup_invite = 54;
+    voice.RequestRoom voice_request_room = 55;
   }
+
+  reserved 15; // old invite lookup
 }
 
 message ServerMessage {
@@ -91,8 +96,8 @@ message RPCResult {
     friends.Relationships relationships = 8;
     chats.Chats chats = 9;
     media.FilePart file_part = 10;
-    chats.CreatedChatInvite created_chat_invite = 11;
-    chats.ChatInvite chat_invite = 12;
+    auth.CreatedInvite created_invite = 11;
+    auth.Invite invite = 12;
     communities.Members members = 13;
     Initialized initialized = 14;
     chats.Chat chat = 15;
@@ -102,6 +107,9 @@ message RPCResult {
     auth.Sessions sessions = 19;
     friends.UserDetails user_details = 20;
     communities.RemovedMembers removed_members = 21;
+    types.Group group = 22;
+    auth.InvitePreview invite_preview = 23;
+    voice.RoomInfo room_info = 24;
   }
 }
 
@@ -110,6 +118,7 @@ message RPCError {
   string error_message = 2;
 }
 
+// core.Initialize -> core.Initialized
 message Initialize {
   uint32 client_id = 1;
   string device_type = 2;

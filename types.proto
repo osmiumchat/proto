@@ -44,6 +44,8 @@ message Group {
   fixed64 id = 1;
   string name = 2;
   bool owner = 3;
+  // @snowflake<User>
+  repeated fixed64 participant_ids = 4;
 }
 
 message Message {
@@ -146,7 +148,7 @@ message CommunityRole {
 }
 
 enum CommunityPermission {
-  NONE = 0x00;
+  NO_PERMISSION = 0x00;
   ADMINISTRATOR = 0x01;
   VIEW_CHANNEL = 0x02;
   SEND_MESSAGES = 0x04;
