@@ -120,6 +120,30 @@ message UpdateMemberList {
   fixed64 channel_id = 2;
   // @snowflake<User>
   repeated fixed64 member_ids = 3;
+
+  repeated MemberListEntry entries = 4;
+}
+
+message MemberListEntry {
+  oneof entry {
+    MemberListEntryUser user = 1;
+    MemberListEntryDivider divider = 2;
+  }
+}
+message MemberListEntryUser {
+  // @snowflake<User>
+  fixed64 user_id = 1;
+  string username = 2;
+  optional tangle.client.types.ChatPhoto avatar = 3;
+  optional bool online = 4; // TODO will need proper presence lol
+}
+
+message MemberListEntryDivider {
+  oneof inner {
+    bool online = 1;
+    // @snowflake<Role>
+    fixed64 role_id = 2;
+  }
 }
 
 message UpdateUserRelationship { types.Relationship relationship = 1; }

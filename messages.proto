@@ -60,3 +60,22 @@ message Messages {
   repeated types.User users = 2;
   repeated types.CommunityMember members = 3;
 }
+
+// messages.search -> messages.Messages
+message Search {
+  refs.ChatRef chat_ref = 1;
+  string query = 2;
+  bool scoped = 3; // A scoped query searches only the specific channel, rather than the entire parent. For global search, see messages.searchAll
+  oneof offset {
+    // @snowflake<Message>
+    fixed64 since = 4;
+    // @snowflake<Message>
+    fixed64 before = 5;
+  }
+}
+
+// messages.getEmbedPreview -> media.MediaEmbed
+message GetEmbedPreview {
+  string message = 1;
+  repeated types.MessageEntity entities = 2;
+}

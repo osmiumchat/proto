@@ -152,6 +152,7 @@ enum CommunityPermission {
   ADMINISTRATOR = 0x01;
   VIEW_CHANNEL = 0x02;
   SEND_MESSAGES = 0x04;
+  CONNECT_VOICE = 0x08;
 }
 
 message ChannelOverride {

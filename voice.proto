@@ -5,12 +5,14 @@ import "refs.proto";
 package tangle.client.voice;
 
 message RoomInfo {
+  // @snowflake
   fixed64 room_id = 1;
   refs.ChatRef chat_ref = 2;
   string endpoint = 3;
 }
 
 message RoomParticipant {
+  // @snowflake
   fixed64 room_id = 1;
   fixed64 connection_id = 2;
   // @snowflake<User>
@@ -27,6 +29,11 @@ message RequestRoom {
 // Updates
 message UpdateRoomState {
   refs.ChatRef chat_ref = 1;
+  RoomState state = 2;
+}
+
+message RoomState {
+  // @snowflake
   fixed64 room_id = 2;
   repeated RoomParticipant participants = 3;
 }

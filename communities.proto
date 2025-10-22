@@ -17,6 +17,7 @@ message CommunityUserInfo {
 message Communities {
   repeated types.Community communities = 1;
   repeated CommunityUserInfo community_user_info = 2;
+  // @snowflake<Community>
   repeated fixed64 unavailable = 3;
 }
 
@@ -52,8 +53,8 @@ message EditChannel {
   optional uint32 position = 3;
 }
 
-// communities.getMembers -> communities.Members
-message GetMembers {
+// communities.GetChannelMembers -> communities.Members
+message GetChannelMembers {
   // @snowflake<Community>
   fixed64 community_id = 1;
   // @snowflake<Channel>

@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package tangle.client.friends;
 import "types.proto";
+import "refs.proto";
 
 // friends.getRelationships -> Relationships
 message GetRelationships {}
@@ -25,19 +26,16 @@ message UserDetails { types.User user = 1; }
 
 // friends.changeRelationship -> ()
 message ChangeRelationship {
-  // @snowflake<User>
-  fixed64 user_id = 1;
-
+  refs.UserRef user = 1;
   RelationshipChangeType change = 2;
 
   enum RelationshipChangeType {
     INVALID = 0;
-    REQUEST_FRIENDSHIP = 1;
-    ACCEPT_FRIENDSHIP = 2;
-    REMOVE_FRIENDSHIP = 3;
-    BLOCK_USER = 4;
-    UNBLOCK_USER = 5;
-    SUGGEST_FRIEND = 6;
+    REQUEST_FRIEND = 1;
+    ACCEPT_FRIEND = 2;
+    REMOVE_FRIEND = 3;
+    BLOCK = 4;
+    UNBLOCK = 5;
   }
 }
 

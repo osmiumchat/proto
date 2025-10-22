@@ -51,7 +51,10 @@ message UploadedFileRef {
 }
 
 message MediaRef {
-  oneof ref { MediaRefUploadedFile uploaded = 1; }
+  oneof ref { 
+    MediaRefUploadedFile uploaded = 1; 
+    MediaRefEmbed embed = 2;
+  }
 }
 
 message EmojiPackRef {
@@ -65,6 +68,10 @@ message MediaRefUploadedFile {
   optional string filename = 2;
   string mimetype = 3;
   FileMetadata metadata = 4;
+}
+
+message MediaRefEmbed {
+  string url = 1;
 }
 
 // File metadata, used to store information about the file, included with media.
@@ -114,7 +121,17 @@ message MediaFile {
   // TODO: spoiler, etc
 }
 
+message MediaEmbed {
+  string url = 1;
+  optional string title = 2;
+  optional string description = 3;
+  // TODO: spoiler, etc
+}
+
 // Media in messages
 message MessageMedia {
-  oneof media { MediaFile file = 1; }
+  oneof media {
+     MediaFile file = 1;
+     MediaEmbed embed = 2;
+  }
 }
