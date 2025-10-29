@@ -12,6 +12,7 @@ import "media.proto";
 import "types.proto";
 import "settings.proto";
 import "voice.proto";
+import "users.proto";
 
 message ClientMessage {
   uint32 id = 1;
@@ -72,6 +73,7 @@ message ClientMessage {
     voice.RequestRoom voice_request_room = 54;
     messages.Search messages_search = 55;
     messages.GetEmbedPreview messages_get_embed_preview = 56;
+    users.GetProfile users_get_profile = 57;
   }
 }
 
@@ -110,6 +112,7 @@ message RPCResult {
     auth.InvitePreview invite_preview = 23;
     voice.RoomInfo room_info = 24;
     media.MediaEmbed media_embed = 25;
+    users.Profile profile = 26;
   }
 }
 

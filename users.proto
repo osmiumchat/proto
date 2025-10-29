@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package tangle.client.users;
+
+import "refs.proto";
+
+message GetProfile {
+  refs.UserRef ref = 1;    
+}
+
+message Profile {
+  refs.UserRef ref = 1;
+  string bio = 2;
+}

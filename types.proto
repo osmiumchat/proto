@@ -94,6 +94,7 @@ message MessageEntity {
 enum ChannelType {
   TEXT = 0;
   VOICE = 1;
+  CATEGORY = 2;
 }
 
 message Channel {
@@ -105,6 +106,8 @@ message Channel {
   string name = 3;
   ChannelType type = 4;
   uint32 position = 5;
+  // @snowflake<Channel>
+  optional fixed64 parent_id = 6;
 }
 
 message Community {

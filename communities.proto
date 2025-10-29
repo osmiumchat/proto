@@ -41,6 +41,8 @@ message CreateChannel {
   fixed64 community_id = 1;
   string name = 2;
   types.ChannelType type = 3;
+  // @snowflake<Channel>
+  optional fixed64 parent_id = 4;
 }
 
 // communities.deleteChannel -> ()
@@ -51,6 +53,8 @@ message EditChannel {
   refs.ChannelRef channel = 1;
   optional string name = 2;
   optional uint32 position = 3;
+  // @snowflake<Channel>
+  optional fixed64 parent_id = 4;
 }
 
 // communities.GetChannelMembers -> communities.Members
