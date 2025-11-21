@@ -40,6 +40,11 @@ message CreateChatInvite {
   optional uint32 max_uses = 3;
 }
 
+// chats.deleteChatInvite -> ()
+message DeleteChatInvite {
+  string code = 1;
+}
+
 // chats.markChatRead -> ()
 message MarkChatRead {
   refs.ChatRef chat_ref = 1;

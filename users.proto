@@ -3,7 +3,9 @@ syntax = "proto3";
 package tangle.client.users;
 
 import "refs.proto";
+import "types.proto";
 
+// users.getProfile -> Profile
 message GetProfile {
   refs.UserRef ref = 1;    
 }
@@ -12,3 +14,7 @@ message Profile {
   refs.UserRef ref = 1;
   string bio = 2;
 }
+
+// users.lookupUsername -> UserDetails
+message LookupUsername { string username = 1; }
+message UserDetails { types.User user = 1; }

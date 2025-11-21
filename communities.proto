@@ -4,6 +4,7 @@ package tangle.client.communities;
 import "refs.proto";
 import "types.proto";
 import "media.proto";
+import "updates.proto";
 
 // communities.getCommunities -> communities.Communities
 message GetCommunities {}
@@ -57,7 +58,7 @@ message EditChannel {
   optional fixed64 parent_id = 4;
 }
 
-// communities.GetChannelMembers -> communities.Members
+// communities.GetChannelMembers -> communities.MemberList
 message GetChannelMembers {
   // @snowflake<Community>
   fixed64 community_id = 1;
@@ -68,6 +69,8 @@ message Members {
   repeated types.CommunityMember members = 1;
   repeated types.User users = 2;
 }
+
+message MemberList { repeated updates.MemberListEntry entries = 1; }
 
 // communities.editPhoto -> ()
 message EditPhoto {
@@ -193,5 +196,30 @@ message RemoveMembers {
   optional fixed64 until = 3;
   // Unix timestamp.
   optional fixed64 delete_messages_since = 4;
+  // Optional reason for removal/ban
+  optional string reason = 5;
 }
-message RemovedMembers {}
+message RemovedMembers {
+  message RemovedMember {
+    // @snowflake<User>
+    fixed64 user_id = 1;
+    types.User user = 2;
+    optional fixed64 until = 3;
+    optional string reason = 4;
+  }
+  repeated RemovedMember members = 1;
+}
+
+// communities.getRemovedMembers -> communities.RemovedMembers
+message GetRemovedMembers {
+  // @snowflake<Community>
+  fixed64 community_id = 1;
+}
+
+// Edits default permissions given to all members
+// communities.editPermissions -> ()
+message EditPermissions {
+  // @snowflake<Community>
+  fixed64 community_id = 1;
+  fixed64 permissions = 2;
+}

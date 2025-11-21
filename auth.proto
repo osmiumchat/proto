@@ -86,22 +86,6 @@ enum InviteType {
   USER = 3;
 }
 
-message Invite {
-  // @snowflake<Invite>
-  fixed64 id = 1;
-  string code = 2;
-  // @snowflake<User>
-  fixed64 creator_id = 3;
-  // @snowflake<Keyable>
-  fixed64 target_id = 4;
-  // @snowflake<Channel>
-  optional fixed64 channel_id = 5;
-  optional fixed64 expires_at = 6;
-  InviteType target_type = 7;
-  optional uint32 remaining_uses = 8;
-  optional uint32 max_uses = 9;
-}
-
 message InvitePreview {
   string code = 1;
   // @snowflake<User>

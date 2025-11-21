@@ -20,10 +20,6 @@ message SyncFriends {
   repeated bytes friend_ids_hashed = 5;
 }
 
-// friends.lookupUsername -> UserDetails
-message LookupUsername { string username = 1; }
-message UserDetails { types.User user = 1; }
-
 // friends.changeRelationship -> ()
 message ChangeRelationship {
   refs.UserRef user = 1;

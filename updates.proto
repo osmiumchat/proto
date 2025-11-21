@@ -37,9 +37,9 @@ message Update {
 message UpdateMessageCreated {
   tangle.client.types.Message message = 1;
   uint32 channel_unread_count = 2;
-  // The sender of the message. Mostly used in communities. Do not assume this
+  // The author of the message. Mostly used in communities. Do not assume this
   // is always present.
-  optional tangle.client.types.User sender = 3;
+  optional tangle.client.types.User author = 3;
 }
 message UpdateMessage { tangle.client.types.Message message = 1; }
 message UpdateChannel { tangle.client.types.Channel channel = 1; }
@@ -118,8 +118,8 @@ message UpdateMemberList {
   optional fixed64 community_id = 1;
   // @snowflake<Channel>
   fixed64 channel_id = 2;
-  // @snowflake<User>
-  repeated fixed64 member_ids = 3;
+  // repeated fixed64 member_ids = 3;
+  reserved 3;
 
   repeated MemberListEntry entries = 4;
 }
@@ -131,11 +131,8 @@ message MemberListEntry {
   }
 }
 message MemberListEntryUser {
-  // @snowflake<User>
-  fixed64 user_id = 1;
-  string username = 2;
-  optional tangle.client.types.ChatPhoto avatar = 3;
-  optional bool online = 4; // TODO will need proper presence lol
+  types.User user = 1;
+  optional string nickname = 2;
 }
 
 message MemberListEntryDivider {
@@ -144,6 +141,7 @@ message MemberListEntryDivider {
     // @snowflake<Role>
     fixed64 role_id = 2;
   }
+  uint32 member_count = 3;
 }
 
 message UpdateUserRelationship { types.Relationship relationship = 1; }

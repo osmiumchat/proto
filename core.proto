@@ -64,16 +64,19 @@ message ClientMessage {
     auth.ResetPassword auth_reset_password = 45;
     auth.VerifyEmail auth_verify_email = 46;
     auth.ResendEmailVerification auth_resend_email_verification = 47;
-    friends.LookupUsername friends_lookup_username = 48;
+    users.LookupUsername users_lookup_username = 48;
     communities.RemoveMembers communities_remove_members = 49;
     chats.CreateChat chats_create_chat = 50;
-    friends.ChangeRelationship change_relationship = 51;
+    friends.ChangeRelationship friends_change_relationship = 51;
     chats.UpdateChat chats_update_chat = 52;
     chats.RemoveChatMember chats_remove_chat_member = 53;
     voice.RequestRoom voice_request_room = 54;
     messages.Search messages_search = 55;
     messages.GetEmbedPreview messages_get_embed_preview = 56;
     users.GetProfile users_get_profile = 57;
+    communities.EditPermissions communities_edit_permissions = 58;
+    chats.DeleteChatInvite chats_delete_chat_invite = 59;
+    communities.GetRemovedMembers communities_get_removed_members = 60;
   }
 }
 
@@ -98,15 +101,15 @@ message RPCResult {
     chats.Chats chats = 9;
     media.FilePart file_part = 10;
     auth.CreatedInvite created_invite = 11;
-    auth.Invite invite = 12;
-    communities.Members members = 13;
+    // auth.Invite invite = 12;
+    communities.MemberList member_list = 13;
     Initialized initialized = 14;
     chats.Chat chat = 15;
     communities.CommunityRoles community_roles = 16;
     communities.ChannelOverride channel_override = 17;
     communities.ChannelOverrides channel_overrides = 18;
     auth.Sessions sessions = 19;
-    friends.UserDetails user_details = 20;
+    users.UserDetails user_details = 20;
     communities.RemovedMembers removed_members = 21;
     types.Group group = 22;
     auth.InvitePreview invite_preview = 23;
@@ -114,6 +117,7 @@ message RPCResult {
     media.MediaEmbed media_embed = 25;
     users.Profile profile = 26;
   }
+  reserved 12; // for auth.Invite
 }
 
 message RPCError {
