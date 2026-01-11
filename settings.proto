@@ -5,7 +5,7 @@ package tangle.client.settings;
 import "media.proto";
 
 // settings.editProfilePhoto -> ()
-message EditProfilePhoto { media.UploadedFileRef file = 1; }
+message EditProfilePhoto { optional media.UploadedFileRef file = 1; }
 
 // settings.registerPushSubscription -> ()
 message RegisterPushSubscription {

@@ -79,3 +79,11 @@ message GetEmbedPreview {
   string message = 1;
   repeated types.MessageEntity entities = 2;
 }
+
+// messages.reportMessage -> ()
+message ReportMessage {
+  // @snowflake<Message>
+  fixed64 message_id = 1;
+  refs.ChatRef chat_ref = 2;
+  string reason = 3;
+}

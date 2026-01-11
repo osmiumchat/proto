@@ -106,3 +106,7 @@ message InvitePreview {
 
 // auth.UseInvite -> ()
 message UseInvite { string code = 1; }
+
+message InviteList {
+  repeated InvitePreview invites = 1;
+}

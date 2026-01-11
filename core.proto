@@ -74,9 +74,11 @@ message ClientMessage {
     messages.Search messages_search = 55;
     messages.GetEmbedPreview messages_get_embed_preview = 56;
     users.GetProfile users_get_profile = 57;
-    communities.EditPermissions communities_edit_permissions = 58;
+    communities.EditDefaultPermissions communities_edit_default_permissions = 58;
     chats.DeleteChatInvite chats_delete_chat_invite = 59;
     communities.GetRemovedMembers communities_get_removed_members = 60;
+    chats.ListChatInvites chats_list_chat_invites = 61;
+    messages.ReportMessage messages_report_message = 62;
   }
 }
 
@@ -116,6 +118,7 @@ message RPCResult {
     voice.RoomInfo room_info = 24;
     media.MediaEmbed media_embed = 25;
     users.Profile profile = 26;
+    auth.InviteList invite_list = 27;
   }
   reserved 12; // for auth.Invite
 }

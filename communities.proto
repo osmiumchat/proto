@@ -76,7 +76,7 @@ message MemberList { repeated updates.MemberListEntry entries = 1; }
 message EditPhoto {
   // @snowflake<Community>
   fixed64 community_id = 1;
-  media.UploadedFileRef file = 2;
+  optional media.UploadedFileRef file = 2;
 }
 
 // Fetches roles in the community that the user is allowed to see.
@@ -87,7 +87,10 @@ message GetRoles {
   // @snowflake<Community>
   fixed64 community_id = 1;
 }
-message CommunityRoles { repeated types.CommunityRole roles = 1; }
+message CommunityRoles { 
+  repeated types.CommunityRole roles = 1;
+  fixed64 default_permissions = 2;
+}
 
 // communities.createRole -> ()
 message CreateRole {
@@ -217,8 +220,8 @@ message GetRemovedMembers {
 }
 
 // Edits default permissions given to all members
-// communities.editPermissions -> ()
-message EditPermissions {
+// communities.editDefaultPermissions -> ()
+message EditDefaultPermissions {
   // @snowflake<Community>
   fixed64 community_id = 1;
   fixed64 permissions = 2;
