@@ -5,6 +5,7 @@ package tangle.client.messages;
 import "types.proto";
 import "refs.proto";
 import "media.proto";
+import "reactions.proto";
 
 // messages.sendMessage -> messages.SentMessage
 message SendMessage {
@@ -59,6 +60,7 @@ message Messages {
   repeated types.Message messages = 1;
   repeated types.User users = 2;
   repeated types.CommunityMember members = 3;
+  repeated reactions.MessageReactions reactions = 4;
 }
 
 // messages.search -> messages.Messages

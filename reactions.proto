@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package tangle.client.reactions;
+
+import "refs.proto";
+
+message AddReaction {
+  refs.ChatRef chat_ref = 1;
+  // @snowflake<Message>
+  fixed64       message_id = 2;
+  ReactionEmoji emoji   = 3;
+}
+
+message RemoveReaction {
+  refs.ChatRef chat_ref = 1;
+  // @snowflake<Message>
+  fixed64       message_id = 2;
+  ReactionEmoji emoji   = 3;
+}
+
+message ReactionEmoji {
+  oneof emoji {
+    string unicode_emoji = 1;
+    // future compatibility
+    // string custom_emoji  = 2;
+  }
+}
+
+message MessageReactions {
+    // @snowflake<Message>
+  fixed64 message_id = 1;
+  repeated MessageReactionField reaction_fields = 2;
+}
+
+message MessageReactionField {
+  reactions.ReactionEmoji emoji = 1;
+  uint32 count = 2;
+  bool me = 3;
+
+  // @snowflake<User>
+  repeated fixed64 preview_user_ids = 4;
+}

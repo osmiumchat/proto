@@ -13,6 +13,7 @@ import "types.proto";
 import "settings.proto";
 import "voice.proto";
 import "users.proto";
+import "reactions.proto";
 
 message ClientMessage {
   uint32 id = 1;
@@ -79,6 +80,8 @@ message ClientMessage {
     communities.GetRemovedMembers communities_get_removed_members = 60;
     chats.ListChatInvites chats_list_chat_invites = 61;
     messages.ReportMessage messages_report_message = 62;
+    reactions.AddReaction reactions_add_reaction = 63;
+    reactions.RemoveReaction reactions_remove_reaction = 64;
   }
 }
 

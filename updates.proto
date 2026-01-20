@@ -6,43 +6,48 @@ import "types.proto";
 import "refs.proto";
 import "chats.proto";
 import "voice.proto";
+import "reactions.proto";
 
 message Update {
   oneof update {
-    UpdateMessageCreated message_created = 1;
-    UpdateChannel channel = 2;
-    UpdateMessageDeleted message_deleted = 3;
-    UpdateUserStatus user_status = 4;
-    UpdateUser user = 5;
-    UpdateCommunity community = 6;
-    UpdateChannelDeleted channel_deleted = 7;
-    UpdateMessage message = 8;
-    UpdateChatTyping chat_typing = 9;
-    UpdateCommunityMember community_member = 10;
-    UpdateCommunityDeleted community_deleted = 11;
-    UpdateConversationPermissions conversation_permissions = 12;
-    UpdateChat chat = 13;
-    UpdateSessionDeleted session_deleted = 14;
-    UpdateCommunityUnavailable community_unavailable = 15;
-    UpdateMemberList member_list = 16;
-    UpdateCommunityMemberDeleted community_member_deleted = 17;
-    UpdateUserRelationship update_user_relationship = 18;
+    UpdateMessageCreated          message_created                  = 1;
+    UpdateChannel                 channel                          = 2;
+    UpdateMessageDeleted          message_deleted                  = 3;
+    UpdateUserStatus              user_status                      = 4;
+    UpdateUser                    user                             = 5;
+    UpdateCommunity               community                        = 6;
+    UpdateChannelDeleted          channel_deleted                  = 7;
+    UpdateMessage                 message                          = 8;
+    UpdateChatTyping              chat_typing                      = 9;
+    UpdateCommunityMember         community_member                 = 10;
+    UpdateCommunityDeleted        community_deleted                = 11;
+    UpdateConversationPermissions conversation_permissions         = 12;
+    UpdateChat                    chat                             = 13;
+    UpdateSessionDeleted          session_deleted                  = 14;
+    UpdateCommunityUnavailable    community_unavailable            = 15;
+    UpdateMemberList              member_list                      = 16;
+    UpdateCommunityMemberDeleted  community_member_deleted         = 17;
+    UpdateUserRelationship        update_user_relationship         = 18;
     UpdateUserRelationshipDeleted update_user_relationship_deleted = 19;
-    UpdateGroup group = 20;
-    voice.UpdateRoomState room_state = 21;
-    voice.UpdateRoomParticipant room_participant = 22;
+    UpdateGroup                   group                            = 20;
+    voice.UpdateRoomState         room_state                       = 21;
+    voice.UpdateRoomParticipant   room_participant                 = 22;
+    UpdateMessageReactions        message_reactions                = 23;
   }
 }
 
 message UpdateMessageCreated {
-  tangle.client.types.Message message = 1;
-  uint32 channel_unread_count = 2;
+  tangle.client.types.Message message              = 1;
+  uint32                      channel_unread_count = 2;
   // The author of the message. Mostly used in communities. Do not assume this
   // is always present.
   optional tangle.client.types.User author = 3;
 }
+
 message UpdateMessage { tangle.client.types.Message message = 1; }
+
 message UpdateChannel { tangle.client.types.Channel channel = 1; }
+
 message UpdateChannelDeleted { refs.ChannelRef channel = 1; }
 
 message UpdateMessageDeleted {
@@ -53,20 +58,20 @@ message UpdateMessageDeleted {
 
 message UpdateUserStatus {
   // @snowflake<User>
-  fixed64 user_id = 1;
-  tangle.client.types.UserStatus status = 2;
+  fixed64                        user_id = 1;
+  tangle.client.types.UserStatus status  = 2;
 }
 
 message UpdateUser {
   // @snowflake<User>
-  fixed64 user_id = 1;
-  tangle.client.types.User user = 2;
+  fixed64                  user_id = 1;
+  tangle.client.types.User user    = 2;
 }
 
 message UpdateCommunity {
   // @snowflake<Community>
-  fixed64 community_id = 1;
-  tangle.client.types.Community community = 2;
+  fixed64                       community_id = 1;
+  tangle.client.types.Community community    = 2;
 }
 
 message UpdateCommunityDeleted {
@@ -78,15 +83,15 @@ message UpdateChatTyping {
   refs.ChatRef chat_ref = 1;
   // @snowflake<User>
   fixed64 user_id = 2;
-  bool typing = 3;
+  bool    typing  = 3;
 }
 
 message UpdateCommunityMember {
   // @snowflake<Community>
   fixed64 community_id = 1;
   // @snowflake<User>
-  fixed64 member_id = 2;
-  tangle.client.types.CommunityMember member = 3;
+  fixed64                             member_id = 2;
+  tangle.client.types.CommunityMember member    = 3;
 }
 
 message UpdateCommunityMemberDeleted {
@@ -97,7 +102,7 @@ message UpdateCommunityMemberDeleted {
 }
 
 message UpdateConversationPermissions {
-  refs.ChatRef chat_ref = 1;
+  refs.ChatRef              chat_ref    = 1;
   types.PermissionOverrides permissions = 2;
 }
 
@@ -126,12 +131,13 @@ message UpdateMemberList {
 
 message MemberListEntry {
   oneof entry {
-    MemberListEntryUser user = 1;
+    MemberListEntryUser    user    = 1;
     MemberListEntryDivider divider = 2;
   }
 }
+
 message MemberListEntryUser {
-  types.User user = 1;
+  types.User      user     = 1;
   optional string nickname = 2;
 }
 
@@ -152,6 +158,12 @@ message UpdateUserRelationshipDeleted {
 }
 
 message UpdateGroup {
-  types.Group group = 1;
+  types.Group         group = 1;
   repeated types.User users = 2;
+}
+
+message UpdateMessageReactions {
+  refs.ChatRef chat_ref = 1;
+
+  reactions.MessageReactions reactions = 2;
 }
