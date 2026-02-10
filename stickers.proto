@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package tangle.client.stickers;
+
+import "media.proto";
+import "refs.proto";
+
+// media.getSavedStickers -> media.SavedStickers
+message GetSavedStickers {
+  optional fixed64 since = 1;
+}
+
+message SavedStickers {
+  repeated StickerPack saved_packs = 1;
+}
+
+message StickerPack {
+  enum Type {
+    UNKNOWN = 0;
+    STICKER = 1;
+    EMOJI = 2;
+  }
+
+  // @snowflake<StickerPack>
+  fixed64 id = 1;
+  Type type = 2;
+  string name = 3;
+  repeated media.File stickers = 4;
+}
+
+// stickers.getStickerFiles -> media.Files
+message GetStickerFiles {
+  // @snowflake<Sticker>
+  repeated fixed64 sticker_ids = 1;
+}
+
+// stickers.getStickerPack -> stickers.StickerPack
+message GetStickerPack {
+  refs.StickerPackRef pack = 1;
+}
+
+// stickers.addStickerToPack -> ()
+message AddStickerToPack {
+  refs.StickerPackRef pack = 1;
+  media.MediaRefUploadedFile sticker = 2;
+}
+
+// stickers.removeStickerFromPack -> ()
+message RemoveStickerFromPack {
+  refs.StickerPackRef pack = 1;
+  // @snowflake<Sticker>
+  fixed64 sticker_id = 2;
+}

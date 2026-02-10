@@ -34,6 +34,14 @@ message EditMessage {
   repeated types.MessageEntity entities = 6;
 }
 
+// messages.forwardMessage -> ()
+message ForwardMessage {
+  refs.ChatRef chat_ref = 1;
+  refs.ChatRef from = 2;
+  // @snowflake<Message>
+  repeated fixed64 message_ids = 3;
+}
+
 // messages.deleteMessage -> ()
 message DeleteMessage {
   refs.ChatRef chat_ref = 1;

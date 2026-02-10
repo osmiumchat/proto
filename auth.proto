@@ -45,6 +45,7 @@ message Session {
   string app_version = 6;
   fixed64 last_active = 7;
   optional string country = 8;
+  optional string region = 9;
 }
 
 // auth.revokeSessions -> ()

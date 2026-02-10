@@ -18,6 +18,7 @@ message SyncFriends {
   optional string platform_user_name = 3;
   string platform = 4;
   repeated bytes friend_ids_hashed = 5;
+  repeated bytes community_ids_hashed = 6;
 }
 
 // friends.changeRelationship -> ()

@@ -37,6 +37,7 @@ message Conversation {
   uint32 unread_count = 5;
   optional string draft = 6;
   optional PermissionOverrides permissions = 7;
+  bool muted = 8;
 }
 
 message Group {
@@ -49,6 +50,15 @@ message Group {
 }
 
 message Message {
+  enum MessageType {
+    UNKNOWN = 0;
+    CALL = 1;
+  }
+
+  message MessageForwardInfo {
+
+  }
+
   refs.ChatRef chat_ref = 1;
   // @snowflake<Message>
   fixed64 message_id = 2;
@@ -60,6 +70,8 @@ message Message {
   repeated media.MessageMedia media = 6;
   repeated MessageEntity entities = 7;
   optional uint64 edited_at = 8;
+  optional MessageType type = 9;
+  optional MessageForwardInfo forward = 10;
 }
 
 message MessageEntity {
@@ -72,7 +84,7 @@ message MessageEntity {
   }
 
   message TextUrlEntity { string url = 1; }
-  message PreEntity { string language = 1; }
+  message PreEntity { optional string language = 1; }
   message SpoilerEntity {}
   message UserMentionEntity {}
 
@@ -84,11 +96,11 @@ message MessageEntity {
     bool code = 7;
     bool url = 8; // implicit url (when the msg content is the url)
     SpoilerEntity spoiler = 9;
-    PreEntity pre = 10;         // code block
+    PreEntity pre = 10; // code block
     TextUrlEntity textUrl = 11; // masked url
     CustomEmojiEntity custom_emoji = 12;
     UserMentionEntity user_mention = 13; // @ mention of user by id
-    bool username = 14;                  // @ mention of user by name
+    bool username = 14; // @ mention of user by name
   }
 }
 
@@ -118,6 +130,7 @@ message Community {
   string name = 3;
   optional ChatPhoto photo = 4;
   fixed64 permissions = 5;
+  bool muted = 6;
 }
 
 message Entrypoint {
@@ -153,18 +166,18 @@ message CommunityRole {
 
 enum CommunityPermission {
   NO_PERMISSION = 0;
-  ADMINISTRATOR = 1;        // 1<<0
-  VIEW_CHANNEL = 2;         // 1<<1
-  SEND_MESSAGES = 4;        // 1<<2
-  CONNECT_VOICE = 8;        // 1<<3
-  MODIFY_CHANNEL = 16;      // 1<<4
-  SEND_MEDIA = 32;          // 1<<5
-  DELETE_MESSAGES = 64;     // 1<<6
-  PIN_MESSAGES = 128;       // 1<<7
-  SPEAK_VOICE = 256;        // 1<<8
-  MODIFY_COMMUNITY = 512;   // 1<<9
-  MODIFY_ROLES = 1024;      // 1<<10
-  REMOVE_MEMBERS = 2048;    // 1<<11
+  ADMINISTRATOR = 1; // 1<<0
+  VIEW_CHANNEL = 2; // 1<<1
+  SEND_MESSAGES = 4; // 1<<2
+  CONNECT_VOICE = 8; // 1<<3
+  MODIFY_CHANNEL = 16; // 1<<4
+  SEND_MEDIA = 32; // 1<<5
+  DELETE_MESSAGES = 64; // 1<<6
+  PIN_MESSAGES = 128; // 1<<7
+  SPEAK_VOICE = 256; // 1<<8
+  MODIFY_COMMUNITY = 512; // 1<<9
+  MODIFY_ROLES = 1024; // 1<<10
+  REMOVE_MEMBERS = 2048; // 1<<11
 }
 
 message ChannelOverride {

@@ -30,3 +30,9 @@ message GroupRef {
   // @snowflake<Chat>
   fixed64 group_id = 1;
 }
+
+message StickerPackRef {
+  // @snowflake<StickerPack>
+  fixed64 id = 1;
+  // TODO auth
+}

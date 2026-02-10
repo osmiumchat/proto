@@ -14,6 +14,8 @@ import "settings.proto";
 import "voice.proto";
 import "users.proto";
 import "reactions.proto";
+import "stickers.proto";
+import "billing.proto";
 
 message ClientMessage {
   uint32 id = 1;
@@ -82,6 +84,19 @@ message ClientMessage {
     messages.ReportMessage messages_report_message = 62;
     reactions.AddReaction reactions_add_reaction = 63;
     reactions.RemoveReaction reactions_remove_reaction = 64;
+    messages.ForwardMessage messages_forward_message = 65;
+    stickers.GetSavedStickers stickers_get_saved_stickers = 66;
+    stickers.GetStickerFiles stickers_get_sticker_files = 67;
+    stickers.GetStickerPack stickers_get_sticker_pack = 68;
+    stickers.AddStickerToPack stickers_add_sticker_to_pack = 69;
+    stickers.RemoveStickerFromPack stickers_remove_sticker_from_pack = 70;
+    billing.RequestPaymentLink billing_request_payment_link = 71;
+    billing.CancelSubscription billing_cancel_subscription = 72;
+    settings.ChangeNotificationPreferences settings_change_notification_preferences = 73;
+    settings.EditProfile settings_edit_profile = 74;
+    settings.GetAccount settings_get_account = 75;
+    settings.ChangePassword settings_change_password = 76;
+    settings.ChangeEmail settings_change_email = 77;
   }
 }
 
@@ -122,6 +137,11 @@ message RPCResult {
     media.MediaEmbed media_embed = 25;
     users.Profile profile = 26;
     auth.InviteList invite_list = 27;
+    stickers.SavedStickers saved_stickers = 28;
+    media.Files files = 29;
+    stickers.StickerPack sticker_pack = 30;
+    billing.PaymentLink payment_link = 31;
+    settings.Account account = 32;
   }
   reserved 12; // for auth.Invite
 }

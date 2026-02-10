@@ -3,6 +3,7 @@ syntax = "proto3";
 package tangle.client.settings;
 
 import "media.proto";
+import "refs.proto";
 
 // settings.editProfilePhoto -> ()
 message EditProfilePhoto { optional media.UploadedFileRef file = 1; }
@@ -31,3 +32,47 @@ message RegisterPushSubscription {
 
 // settings.unregisterPushSubscription -> ()
 message UnregisterPushSubscription {}
+
+// settings.changeNotificationPreferences -> ()
+message ChangeNotificationPreferences {
+  enum NotifPrefs {
+    ALL = 0;
+    MENTIONS = 1;
+    NONE = 2;
+  }
+  
+  NotifPrefs prefs = 1;
+  
+  oneof scope {
+    refs.ChatRef chat_ref = 2; // For channel or DM chat
+    // @snowflake<Community>
+    fixed64 community_id = 3; // For community-level default
+  }
+}
+
+// settings.editProfile -> ()
+message EditProfile {
+  optional string name = 1;
+  optional string username = 2;
+  optional string bio = 3;
+}
+
+// settings.getAccount -> settings.Account
+message GetAccount {}
+
+message Account {
+  string email = 1;
+  bool confirmed = 2;
+}
+
+// settings.changePassword -> ()
+message ChangePassword {
+  string current_password = 1;
+  string new_password = 2;
+  bool revoke_sessions = 3; // Revoke all other sessions after password change
+}
+
+// settings.changeEmail -> ()
+message ChangeEmail {
+  string new_email = 1;
+}
