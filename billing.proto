@@ -6,7 +6,7 @@ package tangle.client.billing;
 message RequestPaymentLink {
   string redirect_url = 1;
   string plan = 2;
-  string billing_period = 3;
+  string billing_period = 3; // monthly or yearly
 }
 
 message PaymentLink {

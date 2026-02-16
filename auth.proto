@@ -11,8 +11,8 @@ message SignIn {
 
 // auth.signUp -> auth.Authorization
 message SignUp {
-  string email = 1;
-  string password = 2;
+  optional string email = 1;
+  optional string password = 2;
   string name = 3;
 }
 

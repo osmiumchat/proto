@@ -100,6 +100,8 @@ message CreateRole {
   fixed64 permissions = 4;
   uint32 priority = 5;
   uint32 color = 6;
+  bool separated = 7;
+  bool public = 8;
 }
 
 // communities.editRole -> ()
@@ -112,6 +114,8 @@ message EditRole {
   fixed64 permissions = 4;
   uint32 priority = 5;
   uint32 color = 6;
+  bool separated = 7;
+  bool public = 8;
 }
 
 // communities.deleteRole -> ()
@@ -225,4 +229,20 @@ message EditDefaultPermissions {
   // @snowflake<Community>
   fixed64 community_id = 1;
   fixed64 permissions = 2;
+}
+
+// communities.unbanMembers -> ()
+message UnbanMembers {
+  // @snowflake<Community>
+  fixed64 community_id = 1;
+  // @snowflake<User>
+  repeated fixed64 member_ids = 2;
+}
+
+// communities.getMembers -> communities.Members
+message GetMembers {
+  // @snowflake<Community>
+  fixed64 community_id = 1;
+  // @snowflake<User>
+  repeated fixed64 member_ids = 2;
 }

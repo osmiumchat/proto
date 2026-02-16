@@ -97,6 +97,8 @@ message ClientMessage {
     settings.GetAccount settings_get_account = 75;
     settings.ChangePassword settings_change_password = 76;
     settings.ChangeEmail settings_change_email = 77;
+    communities.UnbanMembers communities_unban_members = 78;
+    communities.GetMembers communities_get_members = 79;
   }
 }
 
@@ -142,6 +144,7 @@ message RPCResult {
     stickers.StickerPack sticker_pack = 30;
     billing.PaymentLink payment_link = 31;
     settings.Account account = 32;
+    communities.Members members = 33;
   }
   reserved 12; // for auth.Invite
 }
@@ -157,6 +160,7 @@ message Initialize {
   string device_type = 2;
   string device_version = 3;
   string app_version = 4;
+  bool no_subscribe = 5;
 }
 
 message Initialized {

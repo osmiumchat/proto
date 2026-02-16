@@ -34,6 +34,7 @@ message Update {
     voice.UpdateRoomParticipant   room_participant                 = 22;
     UpdateMessageReactions        message_reactions                = 23;
     UpdateConversationLastRead    conversation_last_read           = 24;
+    UpdateCommunityMemberCreated  community_member_created  = 25;
   }
 }
 
@@ -100,6 +101,15 @@ message UpdateCommunityMemberDeleted {
   fixed64 community_id = 1;
   // @snowflake<User>
   fixed64 member_id = 2;
+}
+
+message UpdateCommunityMemberCreated {
+  // @snowflake<Community>
+  fixed64 community_id = 1;
+  // @snowflake<User>
+  fixed64                             member_id = 2;
+  optional tangle.client.types.CommunityMember member    = 3;
+  optional tangle.client.types.User user = 4;
 }
 
 message UpdateConversationPermissions {

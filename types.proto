@@ -162,6 +162,8 @@ message CommunityRole {
   fixed64 permissions = 4;
   uint32 priority = 5;
   uint32 color = 6;
+  bool separated = 7;
+  bool public = 8;
 }
 
 enum CommunityPermission {

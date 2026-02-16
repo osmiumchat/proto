@@ -61,8 +61,9 @@ message EditProfile {
 message GetAccount {}
 
 message Account {
-  string email = 1;
+  optional string email = 1;
   bool confirmed = 2;
+  bool has_password = 3;
 }
 
 // settings.changePassword -> ()

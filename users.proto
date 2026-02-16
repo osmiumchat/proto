@@ -13,6 +13,7 @@ message GetProfile {
 message Profile {
   refs.UserRef ref = 1;
   string bio = 2;
+  optional fixed64 premium_since = 3;
 }
 
 // users.lookupUsername -> UserDetails
