@@ -12,6 +12,9 @@ message User {
   optional UserStatus status = 4;
   optional ChatPhoto photo = 5;
   bool bot = 6;
+  // @snowflake<Emoji>
+  optional fixed64 icon = 7;
+  optional uint32 color = 8;
 }
 
 message ChatPhoto {
@@ -53,6 +56,8 @@ message Message {
   enum MessageType {
     UNKNOWN = 0;
     CALL = 1;
+    JOIN = 2;
+    LEAVE = 3;
   }
 
   message MessageForwardInfo {
@@ -140,7 +145,14 @@ message Entrypoint {
   uint32 region = 4;
 }
 
-message UserStatus { bool online = 2; }
+message UserStatus { 
+  enum Status {
+    ONLINE = 0;
+    IDLE = 1;
+  }
+  bool online = 2 [deprecated = true];
+  optional Status status = 3;
+}
 
 message CommunityMember {
   // @snowflake<User>

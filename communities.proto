@@ -8,6 +8,7 @@ import "updates.proto";
 
 // communities.getCommunities -> communities.Communities
 message GetCommunities {}
+
 message CommunityUserInfo {
   // @snowflake<Community>
   fixed64 community_id = 1;
@@ -27,6 +28,7 @@ message GetChannels {
   // @snowflake<Community>
   fixed64 community_id = 1;
 }
+
 message Channels {
   repeated types.Conversation conversations = 1;
   repeated types.Channel channels = 2;
@@ -65,6 +67,7 @@ message GetChannelMembers {
   // @snowflake<Channel>
   fixed64 channel_id = 2;
 }
+
 message Members {
   repeated types.CommunityMember members = 1;
   repeated types.User users = 2;
@@ -87,7 +90,8 @@ message GetRoles {
   // @snowflake<Community>
   fixed64 community_id = 1;
 }
-message CommunityRoles { 
+
+message CommunityRoles {
   repeated types.CommunityRole roles = 1;
   fixed64 default_permissions = 2;
 }
@@ -135,6 +139,7 @@ message EditMember {
   optional string nickname = 3;
   optional CommunityMemberRoleIds role_ids = 4;
 }
+
 message CommunityMemberRoleIds { // out here cus nested snowflake
   // @snowflake<Role>
   repeated fixed64 role_ids = 1;
@@ -147,6 +152,7 @@ message GetChannelOverrides {
   // @snowflake<Channel>
   fixed64 channel_id = 2;
 }
+
 message ChannelOverrides { repeated types.ChannelOverride overrides = 1; }
 
 // communities.createChannelOverride -> communities.ChannelOverride
@@ -206,6 +212,7 @@ message RemoveMembers {
   // Optional reason for removal/ban
   optional string reason = 5;
 }
+
 message RemovedMembers {
   message RemovedMember {
     // @snowflake<User>
@@ -245,4 +252,21 @@ message GetMembers {
   fixed64 community_id = 1;
   // @snowflake<User>
   repeated fixed64 member_ids = 2;
+}
+
+// communities.editSettings -> communities.CommunitySettings
+message EditSettings {
+  // @snowflake<Community>
+  fixed64 community_id = 1;
+  CommunitySettings settings = 2;
+}
+
+message CommunitySettings {
+  message SystemMessages {
+    // @snowflake<Channel>
+    optional fixed64 channel_id = 1;
+    optional bool join_messages = 2;
+  }
+
+  optional SystemMessages system_messages = 1;
 }

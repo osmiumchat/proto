@@ -4,6 +4,7 @@ package tangle.client.settings;
 
 import "media.proto";
 import "refs.proto";
+import "types.proto";
 
 // settings.editProfilePhoto -> ()
 message EditProfilePhoto { optional media.UploadedFileRef file = 1; }
@@ -55,6 +56,8 @@ message EditProfile {
   optional string name = 1;
   optional string username = 2;
   optional string bio = 3;
+  // @snowflake<Emoji>
+  optional fixed64 icon = 4;
 }
 
 // settings.getAccount -> settings.Account
@@ -76,4 +79,9 @@ message ChangePassword {
 // settings.changeEmail -> ()
 message ChangeEmail {
   string new_email = 1;
+}
+
+// settings.changeStatus -> ()
+message ChangeStatus {
+  tangle.client.types.UserStatus.Status status = 2;
 }

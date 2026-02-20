@@ -99,6 +99,8 @@ message ClientMessage {
     settings.ChangeEmail settings_change_email = 77;
     communities.UnbanMembers communities_unban_members = 78;
     communities.GetMembers communities_get_members = 79;
+    settings.ChangeStatus settings_change_status = 80;
+    communities.EditSettings communities_edit_settings = 81;
   }
 }
 
@@ -145,6 +147,7 @@ message RPCResult {
     billing.PaymentLink payment_link = 31;
     settings.Account account = 32;
     communities.Members members = 33;
+    communities.CommunitySettings community_settings = 34;
   }
   reserved 12; // for auth.Invite
 }
