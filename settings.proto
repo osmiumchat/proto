@@ -67,6 +67,7 @@ message Account {
   optional string email = 1;
   bool confirmed = 2;
   bool has_password = 3;
+  bool totp_enabled = 4;
 }
 
 // settings.changePassword -> ()
@@ -84,4 +85,22 @@ message ChangeEmail {
 // settings.changeStatus -> ()
 message ChangeStatus {
   tangle.client.types.UserStatus.Status status = 2;
+  repeated tangle.client.types.UserStatus.Activity activities = 3;
+}
+
+// settings.setupTotp -> settings.Totp
+message SetupTotp {
+  bool enabled = 1;
+  optional string code = 2;
+}
+
+message Totp {
+  bool enabled = 1;
+  optional string url = 2;
+  repeated BackupCode backup_codes = 3;
+}
+
+message BackupCode {
+  string code = 1;
+  bool used = 2;
 }

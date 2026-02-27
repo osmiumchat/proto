@@ -152,6 +152,20 @@ message UserStatus {
   }
   bool online = 2 [deprecated = true];
   optional Status status = 3;
+
+  message Activity {
+    enum ActivityType {
+      CUSTOM = 0;
+      PLAYING = 1;
+      LISTENING = 2;
+    }
+    string title = 1;
+    ActivityType type = 2;
+    fixed64 start_time = 3;
+    optional fixed64 end_time = 4;
+    optional string state = 5;
+  }
+  repeated Activity activities = 4;
 }
 
 message CommunityMember {

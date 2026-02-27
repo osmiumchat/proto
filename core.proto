@@ -101,6 +101,8 @@ message ClientMessage {
     communities.GetMembers communities_get_members = 79;
     settings.ChangeStatus settings_change_status = 80;
     communities.EditSettings communities_edit_settings = 81;
+    billing.GetSubscription billing_get_subscription = 82;
+    settings.SetupTotp settings_setup_totp = 83;
   }
 }
 
@@ -148,6 +150,8 @@ message RPCResult {
     settings.Account account = 32;
     communities.Members members = 33;
     communities.CommunitySettings community_settings = 34;
+    billing.Subscription subscription = 35;
+    settings.Totp totp = 36;
   }
   reserved 12; // for auth.Invite
 }
