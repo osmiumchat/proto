@@ -184,4 +184,5 @@ message UpdateConversationLastRead {
   // @snowflake<Message>
   fixed64 last_read_message_id = 2;
   optional uint32 unread_count = 3;
+  optional uint32 unread_mentions_count = 4;
 }

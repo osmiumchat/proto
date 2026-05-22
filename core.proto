@@ -16,6 +16,7 @@ import "users.proto";
 import "reactions.proto";
 import "stickers.proto";
 import "billing.proto";
+import "discovery.proto";
 
 message ClientMessage {
   uint32 id = 1;
@@ -103,6 +104,10 @@ message ClientMessage {
     communities.EditSettings communities_edit_settings = 81;
     billing.GetSubscription billing_get_subscription = 82;
     settings.SetupTotp settings_setup_totp = 83;
+    settings.RequestTakeout settings_request_takeout = 84;
+    settings.DeleteAccount settings_delete_account = 85;
+    messages.GetUnreadMentions messages_get_unread_mentions = 86;
+    discovery.GetDiscoverableCommunities discovery_get_discoverable_communities = 87;
   }
 }
 
@@ -116,6 +121,7 @@ message ServerMessage {
 
 message RPCResult {
   uint32 req_id = 1;
+  optional string trace_id = 37;
   oneof result {
     RPCError error = 2;
     messages.SentMessage sent_message = 3;
@@ -152,6 +158,8 @@ message RPCResult {
     communities.CommunitySettings community_settings = 34;
     billing.Subscription subscription = 35;
     settings.Totp totp = 36;
+    messages.UnreadMentions unread_mentions = 38;
+    discovery.DiscoveryCommunities discovery_communities = 39;
   }
   reserved 12; // for auth.Invite
 }

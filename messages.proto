@@ -97,3 +97,12 @@ message ReportMessage {
   refs.ChatRef chat_ref = 2;
   string reason = 3;
 }
+
+// messages.getUnreadMentions -> messages.UnreadMentions
+message GetUnreadMentions {
+  refs.ChatRef chat_ref = 1;
+}
+message UnreadMentions {
+  // @snowflake<Message>
+  repeated fixed64 message_ids = 1;
+}

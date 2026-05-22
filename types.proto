@@ -40,7 +40,8 @@ message Conversation {
   uint32 unread_count = 5;
   optional string draft = 6;
   optional PermissionOverrides permissions = 7;
-  bool muted = 8;
+  NotifPrefs notif_prefs = 8;
+  uint32 unread_mentions_count = 9;
 }
 
 message Group {
@@ -116,6 +117,11 @@ enum ChannelType {
 }
 
 message Channel {
+  enum ChannelFlag {
+    NONE = 0;
+    EXPLICIT = 1; // 1<<0
+  }
+
   // @snowflake<Channel>
   fixed64 id = 1;
   // @snowflake<Community>
@@ -126,6 +132,7 @@ message Channel {
   uint32 position = 5;
   // @snowflake<Channel>
   optional fixed64 parent_id = 6;
+  uint64 flags = 7;
 }
 
 message Community {
@@ -135,7 +142,15 @@ message Community {
   string name = 3;
   optional ChatPhoto photo = 4;
   fixed64 permissions = 5;
-  bool muted = 6;
+  NotifPrefs notif_prefs = 6;
+  optional string username = 7;
+}
+
+enum NotifPrefs {
+  ALL = 0;
+  MENTIONS = 1;
+  NONE = 2;
+  DEFAULT = 3;
 }
 
 message Entrypoint {
@@ -145,7 +160,7 @@ message Entrypoint {
   uint32 region = 4;
 }
 
-message UserStatus { 
+message UserStatus {
   enum Status {
     ONLINE = 0;
     IDLE = 1;
@@ -158,6 +173,7 @@ message UserStatus {
       CUSTOM = 0;
       PLAYING = 1;
       LISTENING = 2;
+      WATCHING = 3;
     }
     string title = 1;
     ActivityType type = 2;
@@ -206,6 +222,7 @@ enum CommunityPermission {
   MODIFY_COMMUNITY = 512; // 1<<9
   MODIFY_ROLES = 1024; // 1<<10
   REMOVE_MEMBERS = 2048; // 1<<11
+  ADD_REACTIONS = 4096; // 1<<12
 }
 
 message ChannelOverride {

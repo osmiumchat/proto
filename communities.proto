@@ -5,6 +5,7 @@ import "refs.proto";
 import "types.proto";
 import "media.proto";
 import "updates.proto";
+import "discovery.proto";
 
 // communities.getCommunities -> communities.Communities
 message GetCommunities {}
@@ -12,8 +13,8 @@ message GetCommunities {}
 message CommunityUserInfo {
   // @snowflake<Community>
   fixed64 community_id = 1;
-  int32 unread_count = 2;
-  // in future there will be a mention count here as well
+  uint32 unread_count = 2;
+  uint32 unread_mention_count = 3;
 }
 
 message Communities {
@@ -58,6 +59,7 @@ message EditChannel {
   optional uint32 position = 3;
   // @snowflake<Channel>
   optional fixed64 parent_id = 4;
+  optional bool explicit = 5;
 }
 
 // communities.GetChannelMembers -> communities.MemberList
@@ -195,6 +197,7 @@ message EditCommunity {
   // @snowflake<Community>
   fixed64 community_id = 1;
   optional string name = 2;
+  optional string username = 3;
 }
 
 // Removes a list of members from the community
@@ -258,7 +261,7 @@ message GetMembers {
 message EditSettings {
   // @snowflake<Community>
   fixed64 community_id = 1;
-  CommunitySettings settings = 2;
+  optional CommunitySettings settings = 2;
 }
 
 message CommunitySettings {
@@ -267,6 +270,11 @@ message CommunitySettings {
     optional fixed64 channel_id = 1;
     optional bool join_messages = 2;
   }
-
   optional SystemMessages system_messages = 1;
+
+  message DiscoveryListing {
+    bool listed = 1;
+    discovery.DiscoveryListingInfo listing = 2;
+  }
+  optional DiscoveryListing discovery_listing = 2;
 }
