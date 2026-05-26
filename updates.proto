@@ -86,6 +86,7 @@ message UpdateChatTyping {
   // @snowflake<User>
   fixed64 user_id = 2;
   bool    typing  = 3;
+  optional chats.TypingAction action = 4;
 }
 
 message UpdateCommunityMember {

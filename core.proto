@@ -108,6 +108,9 @@ message ClientMessage {
     settings.DeleteAccount settings_delete_account = 85;
     messages.GetUnreadMentions messages_get_unread_mentions = 86;
     discovery.GetDiscoverableCommunities discovery_get_discoverable_communities = 87;
+    communities.GetRoomStates communities_get_room_states = 88;
+    messages.SetMessagePin messages_set_message_pin = 89;
+    messages.GetPinnedMessages messages_get_pinned_messages = 90;
   }
 }
 
@@ -160,6 +163,7 @@ message RPCResult {
     settings.Totp totp = 36;
     messages.UnreadMentions unread_mentions = 38;
     discovery.DiscoveryCommunities discovery_communities = 39;
+    communities.RoomStates room_states = 40;
   }
   reserved 12; // for auth.Invite
 }

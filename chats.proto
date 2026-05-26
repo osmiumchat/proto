@@ -58,10 +58,20 @@ message MarkChatRead {
   optional uint32 read_amount = 3;
 }
 
+enum TypingAction {
+  TYPING = 0;
+  UPLOAD_IMAGE = 1;
+  UPLOAD_VIDEO = 2;
+  UPLOAD_FILE = 3;
+  RECORDING_AUDIO = 4;
+  RECORDING_VIDEO = 5;
+}
+
 // chats.setTyping -> ()
 message SetTyping {
   refs.ChatRef chat_ref = 1;
   bool typing = 2;
+  optional TypingAction action = 3;
 }
 
 // chats.createChat -> types.Group
@@ -74,6 +84,13 @@ message CreateChat {
 message UpdateChat {
   refs.ChatRef chat_ref = 1;
   optional string name = 2;
+
+  message HighlightedMessage {
+    // @snowflake<Message>
+    optional fixed64 highlighted_msg_id = 1;
+  }
+  // None to not modify, 0 to modify to None, >0 to modify to Some(msg_id)
+  optional HighlightedMessage highlighted_msg_id = 3;
 }
 
 // chats.removeChatMember -> ()

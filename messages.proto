@@ -106,3 +106,16 @@ message UnreadMentions {
   // @snowflake<Message>
   repeated fixed64 message_ids = 1;
 }
+
+// messages.setMessagePin -> ()
+message SetMessagePin {
+  refs.ChatRef chat_ref = 1;
+  // @snowflake<Message>
+  fixed64 message_id = 2;
+  bool pin = 3;
+}
+
+// messages.getPinnedMessages -> messages.Messages
+message GetPinnedMessages {
+  refs.ChatRef chat_ref = 1;
+}

@@ -6,6 +6,7 @@ import "types.proto";
 import "media.proto";
 import "updates.proto";
 import "discovery.proto";
+import "voice.proto";
 
 // communities.getCommunities -> communities.Communities
 message GetCommunities {}
@@ -60,6 +61,13 @@ message EditChannel {
   // @snowflake<Channel>
   optional fixed64 parent_id = 4;
   optional bool explicit = 5;
+
+  message HighlightedMessage {
+    // @snowflake<Message>
+    optional fixed64 highlighted_msg_id = 1;
+  }
+  // None to not modify, 0 to modify to None, >0 to modify to Some(msg_id)
+  optional HighlightedMessage highlighted_msg_id = 6;
 }
 
 // communities.GetChannelMembers -> communities.MemberList
@@ -277,4 +285,19 @@ message CommunitySettings {
     discovery.DiscoveryListingInfo listing = 2;
   }
   optional DiscoveryListing discovery_listing = 2;
+}
+
+// communities.getRoomStates -> communities.RoomStates
+message GetRoomStates {
+  // @snowflake<Community>
+  fixed64 community_id = 1;
+}
+
+message RoomStates {
+  message RoomState {
+    // @snowflake<Channel>
+    fixed64 channel_id = 1;
+    voice.RoomState state = 2;
+  }
+  repeated RoomState room_states = 1;
 }

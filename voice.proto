@@ -9,16 +9,19 @@ message RoomInfo {
   fixed64 room_id = 1;
   refs.ChatRef chat_ref = 2;
   string endpoint = 3;
+  string token = 4;
 }
 
 message RoomParticipant {
   // @snowflake
   fixed64 room_id = 1;
-  fixed64 connection_id = 2;
+  string session_id = 2;
   // @snowflake<User>
   fixed64 user_id = 3;
   bool muted = 4;
   bool deafened = 5;
+  bool video_available = 7;
+  bool screen_available = 8;
 }
 
 // voice.requestRoom -> RoomInfo
@@ -39,10 +42,6 @@ message RoomState {
 }
 
 message UpdateRoomParticipant {
-  fixed64 connection_id = 1;
-  refs.ChatRef chat_ref = 2;
-  // @snowflake<User>
-  fixed64 user_id = 3;
-  bool muted = 4;
-  bool deafened = 5;
+  refs.ChatRef chat_ref = 1;
+  RoomParticipant participant = 2;
 }
