@@ -10,7 +10,7 @@ syntax = "proto3";
  * which may contain a reference to a File, along with additional metadata.
  *
  */
-package tangle.client.media;
+package osmium.client.media;
 
 import "refs.proto";
 

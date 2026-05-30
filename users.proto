@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package tangle.client.users;
+package osmium.client.users;
 
 import "refs.proto";
 import "types.proto";

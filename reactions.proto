@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package tangle.client.reactions;
+package osmium.client.reactions;
 
 import "refs.proto";
 

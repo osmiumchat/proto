@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package tangle.client.updates;
+package osmium.client.updates;
 
 import "types.proto";
 import "refs.proto";
@@ -39,16 +39,16 @@ message Update {
 }
 
 message UpdateMessageCreated {
-  tangle.client.types.Message message              = 1;
+  osmium.client.types.Message message              = 1;
   uint32                      channel_unread_count = 2;
   // The author of the message. Mostly used in communities. Do not assume this
   // is always present.
-  optional tangle.client.types.User author = 3;
+  optional osmium.client.types.User author = 3;
 }
 
-message UpdateMessage { tangle.client.types.Message message = 1; }
+message UpdateMessage { osmium.client.types.Message message = 1; }
 
-message UpdateChannel { tangle.client.types.Channel channel = 1; }
+message UpdateChannel { osmium.client.types.Channel channel = 1; }
 
 message UpdateChannelDeleted { refs.ChannelRef channel = 1; }
 
@@ -61,19 +61,19 @@ message UpdateMessageDeleted {
 message UpdateUserStatus {
   // @snowflake<User>
   fixed64                        user_id = 1;
-  tangle.client.types.UserStatus status  = 2;
+  osmium.client.types.UserStatus status  = 2;
 }
 
 message UpdateUser {
   // @snowflake<User>
   fixed64                  user_id = 1;
-  tangle.client.types.User user    = 2;
+  osmium.client.types.User user    = 2;
 }
 
 message UpdateCommunity {
   // @snowflake<Community>
   fixed64                       community_id = 1;
-  tangle.client.types.Community community    = 2;
+  osmium.client.types.Community community    = 2;
 }
 
 message UpdateCommunityDeleted {
@@ -94,7 +94,7 @@ message UpdateCommunityMember {
   fixed64 community_id = 1;
   // @snowflake<User>
   fixed64                             member_id = 2;
-  tangle.client.types.CommunityMember member    = 3;
+  osmium.client.types.CommunityMember member    = 3;
 }
 
 message UpdateCommunityMemberDeleted {
@@ -109,8 +109,8 @@ message UpdateCommunityMemberCreated {
   fixed64 community_id = 1;
   // @snowflake<User>
   fixed64                             member_id = 2;
-  optional tangle.client.types.CommunityMember member    = 3;
-  optional tangle.client.types.User user = 4;
+  optional osmium.client.types.CommunityMember member    = 3;
+  optional osmium.client.types.User user = 4;
 }
 
 message UpdateConversationPermissions {

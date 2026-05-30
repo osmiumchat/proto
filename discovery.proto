@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package tangle.client.discovery;
+package osmium.client.discovery;
 import "types.proto";
 
 

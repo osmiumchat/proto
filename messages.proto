@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package tangle.client.messages;
+package osmium.client.messages;
 
 import "types.proto";
 import "refs.proto";

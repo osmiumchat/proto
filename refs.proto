@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package tangle.client.refs;
+package osmium.client.refs;
 
 // TODO: This is only meant to be used for input. Current use is ambiguous.
 message ChatRef {

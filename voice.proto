@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "refs.proto";
 
-package tangle.client.voice;
+package osmium.client.voice;
 
 message RoomInfo {
   // @snowflake

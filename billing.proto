@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package tangle.client.billing;
+package osmium.client.billing;
 
 // billing.requestPaymentLink -> billing.PaymentLink
 message RequestPaymentLink {

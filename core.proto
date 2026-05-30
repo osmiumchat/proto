@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package tangle.client.core;
+package osmium.client.core;
 
 import "auth.proto";
 import "messages.proto";
@@ -118,7 +118,7 @@ message ClientMessage {
 message ServerMessage {
   uint32 id = 1;
   oneof message {
-    tangle.client.updates.Update update = 2;
+    osmium.client.updates.Update update = 2;
     RPCResult result = 3;
   }
 }

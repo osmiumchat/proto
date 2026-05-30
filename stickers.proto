@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package tangle.client.stickers;
+package osmium.client.stickers;
 
 import "media.proto";
 import "refs.proto";

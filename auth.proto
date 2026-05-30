@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package tangle.client.auth;
+package osmium.client.auth;
 import "types.proto";
 
 // auth.signIn -> auth.Authorization
@@ -22,7 +22,7 @@ message Authorize { string token = 5; }
 
 message Authorization {
   string token = 1;
-  tangle.client.types.User user = 2;
+  osmium.client.types.User user = 2;
   // @snowflake<Session>
   fixed64 session_id = 3;
 }
@@ -97,12 +97,12 @@ message InvitePreview {
   InviteType target_type = 4;
   optional fixed64 expires_at = 5;
 
-  optional tangle.client.types.User creator = 6;
+  optional osmium.client.types.User creator = 6;
 
   oneof target_info {
-    tangle.client.types.Community community = 7;
-    tangle.client.types.Group chat = 8;
-    tangle.client.types.User user = 9;
+    osmium.client.types.Community community = 7;
+    osmium.client.types.Group chat = 8;
+    osmium.client.types.User user = 9;
   }
 }
 

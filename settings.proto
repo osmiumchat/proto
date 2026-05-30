@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package tangle.client.settings;
+package osmium.client.settings;
 
 import "media.proto";
 import "refs.proto";
@@ -103,8 +103,8 @@ message ChangeEmail {
 
 // settings.changeStatus -> ()
 message ChangeStatus {
-  tangle.client.types.UserStatus.Status status = 2;
-  repeated tangle.client.types.UserStatus.Activity activities = 3;
+  osmium.client.types.UserStatus.Status status = 2;
+  repeated osmium.client.types.UserStatus.Activity activities = 3;
 }
 
 // settings.setupTotp -> settings.Totp
