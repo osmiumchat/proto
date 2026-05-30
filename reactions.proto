@@ -15,14 +15,14 @@ message RemoveReaction {
   refs.ChatRef chat_ref = 1;
   // @snowflake<Message>
   fixed64       message_id = 2;
-  ReactionEmoji emoji   = 3;
+  ReactionEmoji emoji  = 3;
 }
 
 message ReactionEmoji {
   oneof emoji {
     string unicode_emoji = 1;
-    // future compatibility
-    // string custom_emoji  = 2;
+    // @snowflake<Emoji>
+    fixed64 custom_emoji = 2;
   }
 }
 

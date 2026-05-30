@@ -111,6 +111,7 @@ message ClientMessage {
     communities.GetRoomStates communities_get_room_states = 88;
     messages.SetMessagePin messages_set_message_pin = 89;
     messages.GetPinnedMessages messages_get_pinned_messages = 90;
+    settings.EditUserSettings settings_edit_user_settings = 91;
   }
 }
 
@@ -164,6 +165,7 @@ message RPCResult {
     messages.UnreadMentions unread_mentions = 38;
     discovery.DiscoveryCommunities discovery_communities = 39;
     communities.RoomStates room_states = 40;
+    settings.UserSettings user_settings = 41;
   }
   reserved 12; // for auth.Invite
 }

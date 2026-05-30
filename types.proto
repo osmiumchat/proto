@@ -226,6 +226,7 @@ enum CommunityPermission {
   MODIFY_ROLES = 1024; // 1<<10
   REMOVE_MEMBERS = 2048; // 1<<11
   ADD_REACTIONS = 4096; // 1<<12
+  MODIFY_LINKED_STICKERS = 8192; // 1<<13
 }
 
 message ChannelOverride {

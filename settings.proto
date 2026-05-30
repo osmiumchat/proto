@@ -55,6 +55,19 @@ message ChangeNotificationPreferences {
   }
 }
 
+// settings.editUserSettings -> settings.UserSettings
+message EditUserSettings {
+  optional UserSettings settings = 1;
+}
+
+message UserSettings {
+  message CommunityOrder {
+    // @snowflake<Community>
+    repeated fixed64 community_ids = 1;
+  }
+  optional CommunityOrder community_order = 1;
+}
+
 // settings.editProfile -> ()
 message EditProfile {
   optional string name = 1;
