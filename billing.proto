@@ -24,6 +24,6 @@ message Subscription {
   optional fixed64 since = 2;
   optional uint64 next_renewal_date = 3;
   optional string last_card_digits = 4;
-  optional string method = 5; // e.g. "directdebit", "paypal"
+  optional string method = 5; // e.g. directdebit, paypal
   optional uint64 end_date = 6;
 }
