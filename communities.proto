@@ -163,7 +163,10 @@ message GetChannelOverrides {
   fixed64 channel_id = 2;
 }
 
-message ChannelOverrides { repeated types.ChannelOverride overrides = 1; }
+message ChannelOverrides {
+  repeated types.ChannelOverride overrides = 1;
+  bool parent_sync = 2;
+}
 
 // communities.createChannelOverride -> communities.ChannelOverride
 message CreateChannelOverride {
@@ -186,6 +189,14 @@ message DeleteChannelOverride {
   fixed64 channel_id = 2;
   // @snowflake<Role>
   fixed64 role_id = 3;
+}
+
+// communities.syncChannelOverrides -> ()
+message SyncChannelOverrides {
+  // @snowflake<Community>
+  fixed64 community_id = 1;
+  // @snowflake<Channel>
+  fixed64 channel_id = 2;
 }
 
 // communities.leaveCommunity -> ()

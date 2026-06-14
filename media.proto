@@ -126,6 +126,10 @@ message MediaEmbed {
   string url = 1;
   optional string title = 2;
   optional string description = 3;
+  File file = 4;
+  optional string image_variant = 5;
+  optional string author_name = 6;
+  optional string website_name = 7;
   // TODO: spoiler, etc
 }
 

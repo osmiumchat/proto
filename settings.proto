@@ -9,6 +9,9 @@ import "types.proto";
 // settings.editProfilePhoto -> ()
 message EditProfilePhoto { optional media.UploadedFileRef file = 1; }
 
+// settings.editProfileBanner -> ()
+message EditProfileBanner { optional media.UploadedFileRef file = 1; }
+
 // settings.registerPushSubscription -> ()
 message RegisterPushSubscription {
   enum PushType {

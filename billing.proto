@@ -13,6 +13,25 @@ message PaymentLink {
   optional string url = 1;
 }
 
+// billing.getProducts -> billing.Products
+message GetProducts {}
+
+message Products {
+  repeated Product products = 1;
+}
+
+message Product {
+  string plan = 1;
+  string name = 2;
+  repeated ProductPrice prices = 3;
+}
+
+message ProductPrice {
+  string billing_period = 1; // monthly, yearly, or lifetime
+  uint64 amount_minor = 2;
+  string currency = 3;
+}
+
 // billing.cancelSubscription -> billing.CancelSubscription
 message CancelSubscription {}
 

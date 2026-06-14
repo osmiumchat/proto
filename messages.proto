@@ -15,6 +15,7 @@ message SendMessage {
   optional fixed64 reply_to = 3;
   repeated media.MediaRef media = 4;
   repeated types.MessageEntity entities = 5;
+  bool suppress_embeds = 6;
 }
 message SentMessage {
   // @snowflake<Message>
@@ -32,6 +33,7 @@ message EditMessage {
   repeated media.MediaRef media = 5;
   // Replaces entities if not empty or if message is set.
   repeated types.MessageEntity entities = 6;
+  bool suppress_embeds = 7;
 }
 
 // messages.forwardMessage -> ()
