@@ -48,9 +48,9 @@ message RegisterPushSubscription {
 message UnregisterPushSubscription {}
 
 // settings.changeNotificationPreferences -> ()
-message ChangeNotificationPreferences { 
+message ChangeNotificationPreferences {
   types.NotifPrefs prefs = 1;
-  
+
   oneof scope {
     refs.ChatRef chat_ref = 2; // For channel or DM chat
     // @snowflake<Community>
@@ -108,6 +108,7 @@ message ChangeEmail {
 message ChangeStatus {
   osmium.client.types.UserStatus.Status status = 2;
   repeated osmium.client.types.UserStatus.Activity activities = 3;
+  optional fixed64 last_active = 4;
 }
 
 // settings.setupTotp -> settings.Totp

@@ -9,14 +9,37 @@ import "reactions.proto";
 
 // messages.sendMessage -> messages.SentMessage
 message SendMessage {
+  message ReplyTo {
+    message Quote {
+      string message = 1;
+      repeated types.MessageEntity entities = 2;
+      optional uint64 offset = 3;
+    }
+    // @snowflake<Message>
+    fixed64 message_id = 1;
+    optional Quote quote = 2;
+  }
+
+  message BotInfo {
+    message MessageCloak {
+      string name = 1;
+      // @snowflake<File>
+      optional fixed64 photo_id = 2;
+    }
+    optional MessageCloak cloak = 1;
+  }
+
   refs.ChatRef chat_ref = 1;
   string message = 2;
   // @snowflake<Message>
-  optional fixed64 reply_to = 3;
+  optional fixed64 reply_to_old = 3 [deprecated = true];
   repeated media.MediaRef media = 4;
   repeated types.MessageEntity entities = 5;
   bool suppress_embeds = 6;
+  optional ReplyTo reply_to = 7;
+  optional BotInfo bot_info = 8;
 }
+
 message SentMessage {
   // @snowflake<Message>
   fixed64 message_id = 1;
@@ -66,6 +89,7 @@ message GetHistory {
     fixed64 around = 5;
   }
 }
+
 message Messages {
   repeated types.Message messages = 1;
   repeated types.User users = 2;
@@ -104,6 +128,7 @@ message ReportMessage {
 message GetUnreadMentions {
   refs.ChatRef chat_ref = 1;
 }
+
 message UnreadMentions {
   // @snowflake<Message>
   repeated fixed64 message_ids = 1;

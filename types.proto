@@ -62,7 +62,27 @@ message Message {
   }
 
   message MessageForwardInfo {
+    optional fixed64 date = 1; // timestamp of the original message
+  }
 
+  message MessageReplyInfo {
+    message Quote {
+      string message = 1;
+      repeated MessageEntity entities = 2;
+      optional uint64 offset = 3;
+    }
+
+    // @snowflake<Message>
+    optional fixed64 message_id = 1;
+    optional Quote quote = 2;
+  }
+
+  message MessageBotInfo {
+    message MessageCloak {
+      string name = 1;
+      optional ChatPhoto photo = 2;
+    }
+    optional MessageCloak cloak = 1;
   }
 
   refs.ChatRef chat_ref = 1;
@@ -72,12 +92,14 @@ message Message {
   fixed64 author_id = 3;
   string message = 4;
   // @snowflake<Message>
-  optional fixed64 reply_to = 5;
+  optional fixed64 reply_to = 5 [deprecated = true];
   repeated media.MessageMedia media = 6;
   repeated MessageEntity entities = 7;
   optional uint64 edited_at = 8;
   optional MessageType type = 9;
   optional MessageForwardInfo forward = 10;
+  optional MessageReplyInfo reply = 11;
+  optional MessageBotInfo bot_info = 12;
 }
 
 message MessageEntity {
@@ -167,8 +189,9 @@ message UserStatus {
   enum Status {
     ONLINE = 0;
     IDLE = 1;
+    INVISIBLE = 5;
   }
-  bool online = 2 [deprecated = true];
+  reserved 2; // old online boolean
   optional Status status = 3;
 
   message Activity {
