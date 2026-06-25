@@ -115,6 +115,8 @@ message ClientMessage {
     communities.SyncChannelOverrides communities_sync_channel_overrides = 92;
     settings.EditProfileBanner settings_edit_profile_banner = 93;
     billing.GetProducts billing_get_products = 94;
+    communities.AddMember communities_add_member = 95;
+    chats.AddChatMember chats_add_chat_member = 96;
   }
 }
 

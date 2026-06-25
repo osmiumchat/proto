@@ -99,3 +99,10 @@ message RemoveChatMember {
   // @snowflake<User>
   fixed64 user_id = 2;
 }
+
+// chats.addChatMember -> ()
+message AddChatMember {
+  refs.ChatRef chat_ref = 1;
+  // @snowflake<User>
+  fixed64 user_id = 2;
+}

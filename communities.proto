@@ -68,6 +68,7 @@ message EditChannel {
   }
   // None to not modify, 0 to modify to None, >0 to modify to Some(msg_id)
   optional HighlightedMessage highlighted_msg_id = 6;
+  optional string description = 7;
 }
 
 // communities.GetChannelMembers -> communities.MemberList
@@ -250,6 +251,14 @@ message RemovedMembers {
 message GetRemovedMembers {
   // @snowflake<Community>
   fixed64 community_id = 1;
+}
+
+// communities.addMember -> ()
+message AddMember {
+  // @snowflake<Community>
+  fixed64 community_id = 1;
+  // @snowflake<User>
+  fixed64 user_id = 2;
 }
 
 // Edits default permissions given to all members

@@ -155,9 +155,9 @@ message Channel {
   // @snowflake<Channel>
   optional fixed64 parent_id = 6;
   uint64 flags = 7;
-
   // @snowflake<Message>
   optional fixed64 highlighted_msg_id = 8;
+  optional string description = 9;
 }
 
 message Community {
