@@ -38,6 +38,7 @@ message SendMessage {
   bool suppress_embeds = 6;
   optional ReplyTo reply_to = 7;
   optional BotInfo bot_info = 8;
+  optional fixed64 client_id = 9;
 }
 
 message SentMessage {

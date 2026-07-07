@@ -51,6 +51,7 @@ message Group {
   bool owner = 3;
   // @snowflake<User>
   repeated fixed64 participant_ids = 4;
+  optional ChatPhoto photo = 5;
 }
 
 message Message {
@@ -158,6 +159,7 @@ message Channel {
   // @snowflake<Message>
   optional fixed64 highlighted_msg_id = 8;
   optional string description = 9;
+  optional uint32 slowmode_seconds = 12;
 }
 
 message Community {

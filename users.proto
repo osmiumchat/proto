@@ -7,7 +7,8 @@ import "types.proto";
 
 // users.getProfile -> Profile
 message GetProfile {
-  refs.UserRef ref = 1;    
+  refs.UserRef ref = 1;
+  bool include_mutuals = 2;
 }
 
 message Profile {
@@ -15,6 +16,8 @@ message Profile {
   string bio = 2;
   optional fixed64 premium_since = 3;
   optional types.ChatPhoto banner = 4;
+  repeated fixed64 mutual_communities = 5;
+  repeated fixed64 mutual_friends = 6;
 }
 
 // users.lookupUsername -> UserDetails

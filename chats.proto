@@ -4,6 +4,7 @@ package osmium.client.chats;
 
 import "types.proto";
 import "refs.proto";
+import "media.proto";
 
 // chats.getChats -> chats.Chats
 message GetChats {
@@ -80,8 +81,8 @@ message CreateChat {
   string name = 2;
 }
 
-// chats.updateChat -> chats.Chat
-message UpdateChat {
+// chats.editChat -> chats.Chat
+message EditChat {
   refs.ChatRef chat_ref = 1;
   optional string name = 2;
 
@@ -91,6 +92,11 @@ message UpdateChat {
   }
   // None to not modify, 0 to modify to None, >0 to modify to Some(msg_id)
   optional HighlightedMessage highlighted_msg_id = 3;
+
+  message Photo {
+    optional media.UploadedFileRef file = 1;
+  }
+  optional Photo photo = 4;
 }
 
 // chats.removeChatMember -> ()

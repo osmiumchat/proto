@@ -44,6 +44,7 @@ message UpdateMessageCreated {
   // The author of the message. Mostly used in communities. Do not assume this
   // is always present.
   optional osmium.client.types.User author = 3;
+  optional fixed64 client_id = 4;
 }
 
 message UpdateMessage { osmium.client.types.Message message = 1; }

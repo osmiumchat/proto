@@ -69,6 +69,7 @@ message EditChannel {
   // None to not modify, 0 to modify to None, >0 to modify to Some(msg_id)
   optional HighlightedMessage highlighted_msg_id = 6;
   optional string description = 7;
+  optional uint32 slowmode_seconds = 8;
 }
 
 // communities.GetChannelMembers -> communities.MemberList

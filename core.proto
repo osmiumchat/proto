@@ -72,7 +72,7 @@ message ClientMessage {
     communities.RemoveMembers communities_remove_members = 49;
     chats.CreateChat chats_create_chat = 50;
     friends.ChangeRelationship friends_change_relationship = 51;
-    chats.UpdateChat chats_update_chat = 52;
+    chats.EditChat chats_edit_chat = 52;
     chats.RemoveChatMember chats_remove_chat_member = 53;
     voice.RequestRoom voice_request_room = 54;
     messages.Search messages_search = 55;
